@@ -9,6 +9,6 @@ public class HelloService {
     private int licznik = 0;
 
     public String fetchHelloMessage() {
-        return "Witaj użytkowniku! Jesteś " + (++licznik) + " odwiedzającym moją stronę!";
+        return "Witaj użytkowniku! Jesteś " + (++licznik) + " chcącym liczyć z nami kalorie!";
     }
 }

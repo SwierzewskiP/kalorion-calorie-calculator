@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>kalOrion - kalkulator kalorii</title>
+</head>
+<body>
+<h1>Podaj swoje dane:</h1>
+
+<form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
+    <div>
+        <label for="nameInput" >Nazwa użytkownika</label>
+        <input id="nameInput" type="text" th:field="*{userName}">
+    </div>
+    <div>
+        <label for="dateOfBirthInput" >Data urodzenia:</label>
+        <input id="dateOfBirthInput" type="date" th:field="*{dateOfBirth}" required>
+    </div>
+    <div><p>Płeć:</p>
+    <div th:each="sex : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex).values()}">
+        <input th:id="'sexInput_' + ${sex.name}" type="radio" th:value="${sex}" th:field="*{sex}"></input>
+        <label th:for="'sexInput_' + ${sex.name}" th:text="${sex.description}"></label>
+    </div>
+    </div>
+    <div>
+        <label for="heightInput" >Wzrost w centymetrach:</label>
+        <input id="heightInput" type="number" th:field="*{heightInCms}">
+    </div>
+    <div>
+        <label for="weightInput" >Waga w kilogramach:</label>
+        <input id="weightInput" type="number" th:field="*{weightInKgs}">
+    </div>
+<!--    <div>-->
+<!--        <label for="palInput" >Dzienna aktywność fizyczna:</label>-->
+<!--        <input id="palInput" type="radio" th:field="*{pal}">-->
+<!--    </div>-->
+    <div>Dzienna aktywność fizyczna:
+    <div th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevels).values()}">
+    <input th:id="'palInput_' + ${pal.name}" type="radio" th:value="${pal}" th:field="*{pal}"></input>
+    <label th:for="'palInput_' + ${pal.name}" th:text="${pal.getValue + ' ' + pal.getDescription}"></label>
+</div>
+    </div>
+    <div>
+        <button type="submit">Wylicz!</button>
+    </div>
+</form>
+
+</body>
+</html>
