@@ -14,8 +14,9 @@ public class UserDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    private int heightInCms;
-    private int weightInKgs;
+    private double heightInCms;
+    private double weightInKgs;
+    private double calculatedCalorieIntake;
     private PhysicalActivityLevels pal;
 
     private int getAge() {

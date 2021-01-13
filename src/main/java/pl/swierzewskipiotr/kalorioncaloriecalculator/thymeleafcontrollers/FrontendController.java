@@ -33,6 +33,12 @@ public class FrontendController {
     @PostMapping("/calculateintake")
     public String postCalculateIntake(Model model, UserDTO userDTO) {
         userService.addNewUser(userDTO);
-        return "redirect:/";
+        return "redirect:/yourcalories";
+    }
+
+    @GetMapping("/yourcalories")
+    public String yourCalories(Model model) {
+        model.addAttribute("greeting", helloService.fetchHelloMessage());
+        return "index2";
     }
 }
