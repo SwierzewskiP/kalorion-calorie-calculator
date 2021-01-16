@@ -5,15 +5,19 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.mappers.UserMapper;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public void addNewUser(UserDTO userDTO) {
+    public Long addNewUser(UserDTO userDTO) {
         final UserEntity userEntity = new UserEntity();
         userEntity.setUserName(userDTO.getUserName());
         userEntity.setSex(userDTO.getSex());
@@ -21,6 +25,16 @@ public class UserService {
         userEntity.setHeightInCms(userDTO.getHeightInCms());
         userEntity.setWeightInKgs(userDTO.getWeightInKgs());
         userEntity.setCalculatedCaloricIntake(userDTO.getTDEE());
-        userRepository.save(userEntity);
+        UserEntity savedUser = userRepository.save(userEntity);
+        return savedUser.getId();
+    }
+
+    public double getCalculatedCaloriesByUserId(Long userId) {
+        final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+        if (userEntityOptional.isEmpty()) {
+            throw new RuntimeException("Nie znaleziono użytkownika: " + userId);
+        }
+        UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
+        return userDTO.getCalculatedCalorieIntake();
     }
 }

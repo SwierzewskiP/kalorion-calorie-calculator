@@ -10,36 +10,46 @@
 <form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
     <div>
         <label for="nameInput" >Nazwa użytkownika</label>
-        <input id="nameInput" type="text" th:field="*{userName}">
     </div>
     <div>
-        <label for="dateOfBirthInput" >Data urodzenia:</label>
-        <input id="dateOfBirthInput" type="date" th:field="*{dateOfBirth}" required>
+        <input id="nameInput" type="text" th:field="*{userName}" required>
     </div>
-    <div><p>Płeć:</p>
+    <br>
+    <div>
+        <label for="dateOfBirthInput" >Data urodzenia:</label>
+    </div>
+    <div>
+        <input id="dateOfBirthInput" type="date" th:field="*{dateOfBirth}" value="01.01.2000" required>
+    </div>
+    <br>
+    <div>Płeć:
     <div th:each="sex : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex).values()}">
         <input th:id="'sexInput_' + ${sex.name}" type="radio" th:value="${sex}" th:field="*{sex}"></input>
         <label th:for="'sexInput_' + ${sex.name}" th:text="${sex.description}"></label>
     </div>
     </div>
+    <br>
     <div>
-        <label for="heightInput" >Wzrost w centymetrach:</label>
-        <input id="heightInput" type="number" th:field="*{heightInCms}">
+        <label for="heightInput" >Wzrost (cm):</label>
     </div>
     <div>
-        <label for="weightInput" >Waga w kilogramach:</label>
-        <input id="weightInput" type="number" th:field="*{weightInKgs}">
+    <input id="heightInput" type="number" th:field="*{heightInCms}" value="170" required>
     </div>
-<!--    <div>-->
-<!--        <label for="palInput" >Dzienna aktywność fizyczna:</label>-->
-<!--        <input id="palInput" type="radio" th:field="*{pal}">-->
-<!--    </div>-->
+    <br>
+    <div>
+        <label for="weightInput" >Waga (kg):</label>
+    </div>
+    <div>
+        <input id="weightInput" type="number" th:field="*{weightInKgs}" required>
+    </div>
+    <br>
     <div>Dzienna aktywność fizyczna:
     <div th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevels).values()}">
     <input th:id="'palInput_' + ${pal.name}" type="radio" th:value="${pal}" th:field="*{pal}"></input>
-    <label th:for="'palInput_' + ${pal.name}" th:text="${pal.getValue + ' ' + pal.getDescription}"></label>
-</div>
+    <label th:for="'palInput_' + ${pal.name}" th:text="${pal.getDescription}"></label>
     </div>
+    </div>
+    <br>
     <div>
         <button type="submit">Wylicz!</button>
     </div>

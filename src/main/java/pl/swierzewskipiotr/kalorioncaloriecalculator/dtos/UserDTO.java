@@ -34,11 +34,6 @@ public class UserDTO {
             default:
                 throw new IllegalStateException("Unexpected value: " + sex);
         }
-//        if (sex.equals(Sex.MALE)) {
-//            return mifflinBMRFormula + 5;
-//        } else {
-//            return mifflinBMRFormula - 161;
-//        }
     }
 
     //TDEE (Total Daily Energy Expenditure) = BMR * PAL (Physical Activity Level)
