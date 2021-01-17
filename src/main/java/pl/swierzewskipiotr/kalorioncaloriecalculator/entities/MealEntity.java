@@ -20,4 +20,7 @@ public class MealEntity {
     private ProductEntity productEntity;
     private int weight;
     private LocalDateTime timestamp;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private UserEntity user;
 }

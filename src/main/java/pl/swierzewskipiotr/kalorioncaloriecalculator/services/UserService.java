@@ -24,12 +24,12 @@ public class UserService {
         userEntity.setDateOfBirth(userDTO.getDateOfBirth());
         userEntity.setHeightInCms(userDTO.getHeightInCms());
         userEntity.setWeightInKgs(userDTO.getWeightInKgs());
-        userEntity.setCalculatedCaloricIntake(userDTO.getTDEE());
+        userEntity.setCalculatedCaloricIntake(userDTO.getTDEEmodifiedByDietGoal());
         UserEntity savedUser = userRepository.save(userEntity);
         return savedUser.getId();
     }
 
-    public double getCalculatedCaloriesByUserId(Long userId) {
+    public int getCalculatedCaloriesByUserId(Long userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("Nie znaleziono użytkownika: " + userId);

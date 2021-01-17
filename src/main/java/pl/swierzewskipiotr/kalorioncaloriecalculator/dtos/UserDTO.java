@@ -2,7 +2,8 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.dtos;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevels;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
 
 import java.time.LocalDate;
@@ -14,10 +15,11 @@ public class UserDTO {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    private double heightInCms;
-    private double weightInKgs;
-    private double calculatedCalorieIntake;
-    private PhysicalActivityLevels pal;
+    private int heightInCms;
+    private int weightInKgs;
+    private int calculatedCalorieIntake;
+    private PhysicalActivityLevel pal;
+    private DietGoal dietGoal;
 
     private int getAge() {
         return LocalDate.now().getYear() - dateOfBirth.getYear();
@@ -39,5 +41,10 @@ public class UserDTO {
     //TDEE (Total Daily Energy Expenditure) = BMR * PAL (Physical Activity Level)
     public double getTDEE() {
         return getBMR() * pal.getValue();
+    }
+
+    public int getTDEEmodifiedByDietGoal() {
+        double value = getTDEE() * dietGoal.getValue();
+        return (int)value;
     }
 }

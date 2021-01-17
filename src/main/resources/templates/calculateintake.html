@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>kalOrion - kalkulator kalorii</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style>
+        html {
+            color: gray;
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body>
 <h1>Podaj swoje dane:</h1>
@@ -44,10 +51,17 @@
     </div>
     <br>
     <div>Dzienna aktywność fizyczna:
-    <div th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevels).values()}">
-    <input th:id="'palInput_' + ${pal.name}" type="radio" th:value="${pal}" th:field="*{pal}"></input>
-    <label th:for="'palInput_' + ${pal.name}" th:text="${pal.getDescription}"></label>
+    <div th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel).values()}">
+    <input th:id="'palInput_' + ${pal}" type="radio" th:value="${pal}" th:field="*{pal}"></input>
+    <label th:for="'palInput_' + ${pal}" th:text="${pal.description}"></label>
     </div>
+    </div>
+    <br>
+    <div>Cel diety:
+        <div th:each="dietGoal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal).values()}">
+            <input th:id="'dietGoalInput_' + ${dietGoal}" type="radio" th:value="${dietGoal}" th:field="*{dietGoal}"></input>
+            <label th:for="'dietGoalInput_' + ${dietGoal}" th:text="${dietGoal.description}"></label>
+        </div>
     </div>
     <br>
     <div>

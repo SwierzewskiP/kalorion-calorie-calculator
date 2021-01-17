@@ -30,8 +30,8 @@ public class FrontendController {
     public String calculateIntake(Model model) {
         final UserDTO userDTO = new UserDTO();
         userDTO.setDateOfBirth(LocalDate.of(1999, 1, 1));
-        userDTO.setHeightInCms(170.0);
-        userDTO.setWeightInKgs(65.0);
+        userDTO.setHeightInCms(170);
+        userDTO.setWeightInKgs(65);
         model.addAttribute("userDTO", userDTO);
         return "calculateintake";
     }
@@ -39,7 +39,7 @@ public class FrontendController {
     @PostMapping("/calculateintake")
     public String postCalculateIntake(Model model, UserDTO userDTO) {
         Long userId = userService.addNewUser(userDTO);
-        return "redirect:/yourcalories/"+userId;
+        return "redirect:/yourcalories/" + userId;
     }
 
     @GetMapping("/yourcalories/{userId}")

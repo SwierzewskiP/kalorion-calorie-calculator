@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum PhysicalActivityLevels {
+public enum PhysicalActivityLevel {
     INACTIVE(1.2, "Prawie brak aktywności fizycznej: praca siedząca/uczeń, brak regularnych ćwiczeń, niska aktywność fizyczna w ciągu dnia (do 5 tys. kroków)"),
     SEDENTARY(1.4,
             "Siedzący tryb życia: praca siedząca/uczeń, treningi (np. na siłowni lub w domu) 2-4x w tygodniu, umiarkowana aktywność fizyczna w ciągu dnia (ok.5-9 tysięcy kroków dziennie)"),
