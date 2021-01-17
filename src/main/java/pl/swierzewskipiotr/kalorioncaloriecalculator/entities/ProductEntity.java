@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -18,7 +19,8 @@ public class ProductEntity {
     private Long id;
 
     private String name;
-    private int proteinsPer100g;
-    private int fatsPer100g;
-    private int carbsPer100g;
+    private int kcalPer100g;
+    private double proteinsPer100g;
+    private double fatsPer100g;
+    private double carbsPer100g;
 }

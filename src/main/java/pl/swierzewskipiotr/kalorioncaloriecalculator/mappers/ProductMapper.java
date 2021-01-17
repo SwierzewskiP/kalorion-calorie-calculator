@@ -13,6 +13,7 @@ public class ProductMapper {
         final ProductDTO dto = new ProductDTO();
 
         dto.setName(entity.getName());
+        dto.setKcalPer100g(entity.getKcalPer100g());
         dto.setProteinsPer100g(entity.getProteinsPer100g());
         dto.setFatsPer100g(entity.getFatsPer100g());
         dto.setCarbsPer100g(entity.getCarbsPer100g());
@@ -23,6 +24,7 @@ public class ProductMapper {
     public ProductEntity toEntity(ProductDTO dto) {
         final ProductEntity entity = new ProductEntity();
         entity.setName(dto.getName());
+        entity.setKcalPer100g(dto.getKcalPer100g());
         entity.setProteinsPer100g(dto.getProteinsPer100g());
         entity.setFatsPer100g(dto.getFatsPer100g());
         entity.setCarbsPer100g(dto.getCarbsPer100g());

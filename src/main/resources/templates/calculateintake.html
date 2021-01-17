@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>kalOrion - kalkulator kalorii</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <style>
-        html {
-            color: gray;
-            font-size: 24px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<h1>Podaj swoje dane:</h1>
+<h1>kalOrion App</h1>
+
+<h2>Podaj swoje dane:</h2>
 
 <form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
     <div>

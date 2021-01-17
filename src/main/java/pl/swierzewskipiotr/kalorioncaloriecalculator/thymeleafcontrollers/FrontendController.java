@@ -7,11 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.HelloService;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.services.ProductService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -19,6 +22,7 @@ import java.time.LocalDate;
 public class FrontendController {
     private final HelloService helloService;
     private final UserService userService;
+    private final ProductService productService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -47,5 +51,13 @@ public class FrontendController {
         model.addAttribute("calculatedCalories", userService
                 .getCalculatedCaloriesByUserId(userId));
         return "yourcalories";
+    }
+
+    @GetMapping("/products")
+    public String products(Model model) {
+        final List<ProductDTO> allProducts = productService.getAllProducts();
+        model.addAttribute("products", allProducts);
+
+        return "products";
     }
 }

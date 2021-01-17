@@ -16,7 +16,7 @@ public class MealEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private ProductEntity productEntity;
     private int weight;
     private LocalDateTime timestamp;

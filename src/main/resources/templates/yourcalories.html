@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>kalOrion - kalkulator kalorii</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <style>
-        html {
-            color: gray;
-            font-size: 24px;
-        }
-        h1 {
-            color: orangered;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <h1>kalOrion App</h1>
 <p>Twoje dzienne zapotrzebowanie kaloryczne wynosi:
 <h2 th:text="${calculatedCalories}"></h2>
+<p>Kliknij <a th:href="@{/products}">tutaj</a>, by wyświetlić dostępne produkty</p>
 </p>
 
 </body>
