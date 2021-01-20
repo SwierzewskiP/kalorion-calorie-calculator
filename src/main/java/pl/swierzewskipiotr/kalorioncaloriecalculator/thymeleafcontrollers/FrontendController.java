@@ -50,6 +50,7 @@ public class FrontendController {
     public String yourCalories(Model model, @PathVariable Long userId) {
         model.addAttribute("calculatedCalories", userService
                 .getCalculatedCaloriesByUserId(userId));
+        model.addAttribute("calculatedBMR",userService.getBMRbyUserId(userId));
         return "yourcalories";
     }
 

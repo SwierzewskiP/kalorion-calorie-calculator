@@ -24,6 +24,7 @@ public class UserEntity {
     private LocalDate dateOfBirth;
     private int heightInCms;
     private int weightInKgs;
+    private int bmr;
     private int calculatedCaloricIntake;
     @OneToMany(
             mappedBy = "user",

@@ -24,15 +24,25 @@ public class UserService {
         userEntity.setDateOfBirth(userDTO.getDateOfBirth());
         userEntity.setHeightInCms(userDTO.getHeightInCms());
         userEntity.setWeightInKgs(userDTO.getWeightInKgs());
+        userEntity.setBmr(userDTO.getBMR());
         userEntity.setCalculatedCaloricIntake(userDTO.getTDEEmodifiedByDietGoal());
         UserEntity savedUser = userRepository.save(userEntity);
         return savedUser.getId();
     }
 
-    public int getCalculatedCaloriesByUserId(Long userId) {
+    public int getBMRbyUserId(Long userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("Nie znaleziono użytkownika: " + userId);
+        }
+        UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
+        return userDTO.getBMR();
+    }
+
+    public int getCalculatedCaloriesByUserId(Long userId) {
+        final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+        if (userEntityOptional.isEmpty()) {
+            throw new RuntimeException("No user of id: " + userId);
         }
         UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
         return userDTO.getCalculatedCalorieIntake();

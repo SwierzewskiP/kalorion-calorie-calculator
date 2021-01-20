@@ -17,6 +17,7 @@ public class UserDTO {
     private LocalDate dateOfBirth;
     private int heightInCms;
     private int weightInKgs;
+    private int bmr;
     private int calculatedCalorieIntake;
     private PhysicalActivityLevel pal;
     private DietGoal dietGoal;
@@ -26,13 +27,13 @@ public class UserDTO {
     }
 
     //BMR - Basal Metabolic Rate by Mifflin
-    public double getBMR() {
+    public int getBMR() {
         double mifflinBMRFormula = (10 * weightInKgs) + (6.25 * heightInCms) - (5 * getAge());
         switch (sex) {
             case MALE:
-                return mifflinBMRFormula + 5;
+                return (int)mifflinBMRFormula + 5;
             case FEMALE:
-                return mifflinBMRFormula - 161;
+                return (int)mifflinBMRFormula - 161;
             default:
                 throw new IllegalStateException("Unexpected value: " + sex);
         }
