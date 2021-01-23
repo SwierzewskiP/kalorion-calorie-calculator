@@ -2,10 +2,10 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.thymeleafcontrollers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
@@ -31,9 +31,9 @@ public class FrontendController {
     }
 
     @GetMapping("/calculateintake")
-    public String calculateIntake(Model model) {
+    public String calculateIntake(Model model, OAuth2AuthenticationToken authentication) {
         final UserDTO userDTO = new UserDTO();
-        userDTO.setDateOfBirth(LocalDate.of(1999, 1, 1));
+        userDTO.setDateOfBirth(LocalDate.of(2000, 1, 1));
         userDTO.setHeightInCms(170);
         userDTO.setWeightInKgs(65);
         model.addAttribute("userDTO", userDTO);
@@ -41,13 +41,14 @@ public class FrontendController {
     }
 
     @PostMapping("/calculateintake")
-    public String postCalculateIntake(Model model, UserDTO userDTO) {
-        Long userId = userService.addNewUser(userDTO);
-        return "redirect:/yourcalories/" + userId;
+    public String postCalculateIntake(Model model, UserDTO userDTO,  OAuth2AuthenticationToken authentication) {
+        userService.addNewUser(userDTO, authentication);
+        return "redirect:/yourcalories";
     }
 
-    @GetMapping("/yourcalories/{userId}")
-    public String yourCalories(Model model, @PathVariable Long userId) {
+    @GetMapping("/yourcalories")
+    public String yourCalories(Model model, OAuth2AuthenticationToken authentication) {
+        Integer userId = authentication.getPrincipal().getAttribute("id");
         model.addAttribute("calculatedCalories", userService
                 .getCalculatedCaloriesByUserId(userId));
         model.addAttribute("calculatedBMR",userService.getBMRbyUserId(userId));

@@ -7,7 +7,7 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository  extends JpaRepository<UserEntity, Long> {
+public interface UserRepository  extends JpaRepository<UserEntity, Integer> {
 
     Optional<UserEntity> findByUserName (String userName);
 }

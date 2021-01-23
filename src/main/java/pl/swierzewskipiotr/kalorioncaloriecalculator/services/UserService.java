@@ -2,6 +2,7 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
@@ -17,9 +18,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public Long addNewUser(UserDTO userDTO) {
+    public Integer addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
         final UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(userDTO.getUserName());
+        String name = authentication.getPrincipal().getAttribute("name");
+        if (name == null) {
+            name = authentication.getPrincipal().getAttribute("login");
+        }
+        Integer githubId = authentication.getPrincipal().getAttribute("id");
+        userEntity.setGithubId(githubId);
+        userEntity.setUserName(name);
         userEntity.setSex(userDTO.getSex());
         userEntity.setDateOfBirth(userDTO.getDateOfBirth());
         userEntity.setHeightInCms(userDTO.getHeightInCms());
@@ -27,10 +34,10 @@ public class UserService {
         userEntity.setBmr(userDTO.getBMR());
         userEntity.setCalculatedCaloricIntake(userDTO.getTDEEmodifiedByDietGoal());
         UserEntity savedUser = userRepository.save(userEntity);
-        return savedUser.getId();
+        return savedUser.getGithubId();
     }
 
-    public int getBMRbyUserId(Long userId) {
+    public int getBMRbyUserId(Integer userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("Nie znaleziono użytkownika: " + userId);
@@ -39,7 +46,7 @@ public class UserService {
         return userDTO.getBMR();
     }
 
-    public int getCalculatedCaloriesByUserId(Long userId) {
+    public int getCalculatedCaloriesByUserId(Integer userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("No user of id: " + userId);
