@@ -1,0 +1,21 @@
+#Here is the kalOrion App available to use on Google Cloud:
+#https://kal0rion.ey.r.appspot.com/
+
+runtime: java11
+env: standard
+
+instance_class: F4
+
+#forcing at least one instance for the app to scale from one and be always on
+automatic_scaling:
+  min_instances: 1
+  max_instances: 1
+
+env_variables:
+  SPRING_PROFILES_ACTIVE: prod
+
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
+    redirect_http_response_code: 301
