@@ -48,6 +48,7 @@ public class FrontendController {
 
     @GetMapping("/yourcalories")
     public String yourCalories(Model model, OAuth2AuthenticationToken authentication) {
+
         Integer userId = authentication.getPrincipal().getAttribute("id");
         model.addAttribute("calculatedCalories", userService
                 .getCalculatedCaloriesByUserId(userId));

@@ -20,12 +20,12 @@ public class UserService {
 
     public Integer addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
         final UserEntity userEntity = new UserEntity();
+        Integer githubId = authentication.getPrincipal().getAttribute("id");
+        userEntity.setGithubId(githubId);
         String name = authentication.getPrincipal().getAttribute("name");
         if (name == null) {
             name = authentication.getPrincipal().getAttribute("login");
         }
-        Integer githubId = authentication.getPrincipal().getAttribute("id");
-        userEntity.setGithubId(githubId);
         userEntity.setUserName(name);
         userEntity.setSex(userDTO.getSex());
         userEntity.setDateOfBirth(userDTO.getDateOfBirth());
@@ -40,7 +40,7 @@ public class UserService {
     public int getBMRbyUserId(Integer userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
-            throw new RuntimeException("Nie znaleziono użytkownika: " + userId);
+            throw new RuntimeException("No user of id: " + userId);
         }
         UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
         return userDTO.getBMR();
