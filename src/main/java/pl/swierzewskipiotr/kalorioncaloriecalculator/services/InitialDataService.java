@@ -2,6 +2,7 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,18 @@ import javax.transaction.Transactional;
 @Log4j2
 @Profile("!prod")
 public class InitialDataService implements CommandLineRunner {
+
+    @Value("${fatsecret-platform.key}")
+    private String key;
+
+    @Value("${fatsecret-platform.secret}")
+    private String secret;
+
     private final ProductRepository productRepository;
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         fillSampleProducts();
     }
 
