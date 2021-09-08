@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class HelloServiceTest {
 
     @Test
-    void fetchHelloMessage() {
+    void shouldFetchHelloMessageWithUserCounter() {
         //given
         HelloService helloService = new HelloService(0);
 
@@ -18,4 +18,5 @@ class HelloServiceTest {
         assertEquals(result, "Witaj użytkowniku! Jesteś " + 1 + " chcącym liczyć z nami kalorie!");
 
     }
+
 }
