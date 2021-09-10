@@ -44,6 +44,7 @@ public class UserDTO {
         return getBMR() * pal.getValue();
     }
 
+    //it's named later calculatedCalorieIntake for clarity
     public int getTDEEmodifiedByDietGoal() {
         double value = getTDEE() * dietGoal.getValue();
         return (int)value;

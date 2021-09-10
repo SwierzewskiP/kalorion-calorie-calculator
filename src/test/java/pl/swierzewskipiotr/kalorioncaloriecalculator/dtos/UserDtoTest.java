@@ -2,6 +2,8 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.dtos;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
 
 import java.time.LocalDate;
@@ -20,6 +22,8 @@ class UserDtoTest {
         maleDTO.setDateOfBirth(LocalDate.of(1987, 11, 3));
         maleDTO.setWeightInKgs(75);
         maleDTO.setHeightInCms(175);
+        maleDTO.setPal(PhysicalActivityLevel.VIGOROUSLY_ACTIVE);
+        maleDTO.setDietGoal(DietGoal.FAT_LOSS);
 
         femaleDTO = new UserDTO();
         femaleDTO.setSex(Sex.FEMALE);
@@ -50,13 +54,21 @@ class UserDtoTest {
 
     @Test
     void shouldGetUserTDEE() {
+        //given
+        //when
+        double result = maleDTO.getTDEE();
+
+        //then
+        assertThat(result).isEqualTo(2936.5);
     }
 
     @Test
     void shouldGetTDEEmodifiedByDietGoal() {
-    }
+        //given
+        //when
+        double result = maleDTO.getTDEEmodifiedByDietGoal();
 
-    @Test
-    void shouldGetCalculatedCalorieIntake() {
+        //then
+        assertThat(result).isEqualTo(2496.0);
     }
 }
