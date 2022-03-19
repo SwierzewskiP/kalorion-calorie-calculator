@@ -1,5 +1,5 @@
-HELP.md
-target/
+../HELP.md
+../target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -34,3 +34,4 @@ build/
 
 ### secret properties ###
 /src/main/resources/application*secret.properties
+/src/main/resources/localhost.p12
