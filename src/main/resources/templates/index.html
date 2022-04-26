@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>kalOrion - kalkulator kalorii</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
+
+<head th:replace="fragments/head :: head"></head>
 
 <body>
-<h1>kalOrion App</h1>
-<h2 th:text="${greeting}"></h2>
-<p>Kliknij <a th:href="@{/calculateintake}">tutaj</a>, by obliczyć swoje dzienne zapotrzebowanie kaloryczne</p>
+
+<nav th:replace="fragments/navigation :: nav"></nav>
+
+<div class="container content-wrapper">
+    <h2 th:text="${greeting}"></h2>
+    <p>Kliknij <a th:href="@{/calculateintake}">tutaj</a>, by obliczyć swoje dzienne zapotrzebowanie kaloryczne</p>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
 
 </body>
 </html>

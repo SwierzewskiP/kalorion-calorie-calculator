@@ -7,64 +7,91 @@
 
 <nav th:replace="fragments/navigation :: nav"></nav>
 
-<h5>Podaj swoje dane:</h5>
+<div class="row">
+    <div class="container">
+        <h4>Podaj swoje dane:</h4>
+        <form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
+            <!--    <div>-->
+            <!--        <label for="nameInput" >Nazwa użytkownika</label>-->
+            <!--    </div>-->
+            <!--    <div>-->
+            <!--        <input id="nameInput" type="text" th:field="*{userName}" required>-->
+            <!--    </div>-->
+            <!--    <br>-->
 
-<form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
-    <!--    <div>-->
-    <!--        <label for="nameInput" >Nazwa użytkownika</label>-->
-    <!--    </div>-->
-    <!--    <div>-->
-    <!--        <input id="nameInput" type="text" th:field="*{userName}" required>-->
-    <!--    </div>-->
-    <!--    <br>-->
-    <div>
-        <label for="dateOfBirthInput">Data urodzenia:</label>
-    </div>
-    <div>
-        <input id="dateOfBirthInput" type="date" th:field="*{dateOfBirth}" value="01.01.2000" required>
-    </div>
-    <br>
-    <div>Płeć:
-        <div th:each="sex : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex).values()}">
-            <input th:id="'sexInput_' + ${sex.name}" type="radio" th:value="${sex}" th:field="*{sex}"></input>
-            <label th:for="'sexInput_' + ${sex.name}" th:text="${sex.description}"></label>
-        </div>
-    </div>
-    <br>
-    <div>
-        <label for="heightInput">Wzrost (cm):</label>
-    </div>
-    <div>
-        <input id="heightInput" type="number" th:field="*{heightInCms}" value="170" required>
-    </div>
-    <br>
-    <div>
-        <label for="weightInput">Waga (kg):</label>
-    </div>
-    <div>
-        <input id="weightInput" type="number" th:field="*{weightInKgs}" required>
-    </div>
-    <br>
-    <div>Dzienna aktywność fizyczna:
-        <div th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel).values()}">
-            <input th:id="'palInput_' + ${pal}" type="radio" th:value="${pal}" th:field="*{pal}"></input>
-            <label th:for="'palInput_' + ${pal}" th:text="${pal.description}"></label>
-        </div>
-    </div>
-    <br>
-    <div>Cel diety:
-        <div th:each="dietGoal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal).values()}">
-            <input th:id="'dietGoalInput_' + ${dietGoal}" type="radio" th:value="${dietGoal}"
-                   th:field="*{dietGoal}"></input>
-            <label th:for="'dietGoalInput_' + ${dietGoal}" th:text="${dietGoal.description}"></label>
-        </div>
-    </div>
-    <br>
-    <div>
-        <button type="submit">Wylicz!</button>
-    </div>
-</form>
+            <div class="row mb-4">
+                <label for="dateOfBirthInput" class="col-sm-3 col-form-label">Data urodzenia</label>
+                <div class="col-sm-9">
+                    <input id="dateOfBirthInput" class="form-control" type="date" th:field="*{dateOfBirth}"
+                           value="01.01.2000" required>
+                </div>
+            </div>
 
+            <fieldset class="row mb-4">
+                <legend class="col-form-label col-sm-3 pt-0">Płeć</legend>
+                <div class="col-sm-9">
+                    <div class="form-check mb-2"
+                         th:each="sex : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex).values()}">
+                        <input class="form-check-input" th:id="'sexInput_' + ${sex.name}" type="radio"
+                               th:value="${sex}" th:field="*{sex}"></input>
+                        <label class="form-check-label" th:for="'sexInput_' + ${sex.name}"
+                               th:text="${sex.description}"></label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="row mb-4">
+                <label for="heightInput" class="col-sm-3 col-form-label">Wzrost (cm)</label>
+                <div class="col-sm-9">
+                    <input id="heightInput" class="form-control" type="number" th:field="*{heightInCms}" value="170"
+                           required>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label for="weightInput" class="col-sm-3 col-form-label">Waga (kg)</label>
+                <div class="col-sm-9">
+                    <input id="weightInput" class="form-control" type="number" th:field="*{weightInKgs}" required>
+                </div>
+            </div>
+
+            <fieldset class="row mb-4">
+                <legend class="col-form-label col-sm-3 pt-0">Dzienna aktywność</legend>
+                <div class="col-sm-9">
+                    <div class="form-check mb-2"
+                         th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel).values()}">
+                        <input class="form-check-input" th:id="'palInput_' + ${pal}" type="radio" th:value="${pal}"
+                               th:field="*{pal}"></input>
+                        <label class="form-check-label" th:for="'palInput_' + ${pal}"
+                               th:text="${pal.description}"></label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="row mb-4">
+                <legend class="col-form-label col-sm-3 pt-0">Cel diety</legend>
+                <div class="col-sm-9">
+                    <div class="form-check mb-2"
+                         th:each="dietGoal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal).values()}">
+                        <input class="form-check-input" th:id="'dietGoalInput_' + ${dietGoal}" type="radio"
+                               th:value="${dietGoal}"
+                               th:field="*{dietGoal}"></input>
+                        <label class="form-check-label" th:for="'dietGoalInput_' + ${dietGoal}"
+                               th:text="${dietGoal.description}"></label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="row mb-4">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary">Wylicz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footerfix"></div>
 <footer th:replace="fragments/footer :: footer"></footer>
 
 </body>
