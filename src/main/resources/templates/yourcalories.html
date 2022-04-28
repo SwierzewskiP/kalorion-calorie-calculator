@@ -8,12 +8,12 @@
 <nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="container">
-    <div>Twoje dzienne zapotrzebowanie kaloryczne wynosi:
-        <h2 th:text="${calculatedCalories}"></h2></div>
-    <div>Twój PPM* wynosi:
-        <h3 th:text="${calculatedBMR}"></h3></div>
+    <h5>Twoje dzienne zapotrzebowanie kaloryczne wynosi:</h5>
+    <h2 th:text="${calculatedCalories}"></h2>
+    <p>Twój PPM* wynosi:</p>
+    <h3 th:text="${calculatedBMR}"></h3>
 
-    <p style="font-size: 16px">*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
+    <p>*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
         zapewnić prawidłowe funkcjonowanie organizmu. Nie zaleca się jeść mniej kalorii niż ta wartość (dieta
         głodówkowa).</p>
     <p>Kliknij <a th:href="@{/products}">tutaj</a>, by wyświetlić dostępne produkty</p>
