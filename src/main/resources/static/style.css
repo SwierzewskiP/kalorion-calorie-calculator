@@ -23,9 +23,26 @@ footer {
     height: 56px;
 }
 
+.homepage-quote {
+    padding-top: 8rem;
+}
+
+.logo {
+    margin-left: 1rem;
+}
+
+.logout-button {
+    margin-right: 1rem;
+}
+
 /* I override bootstrap classes below */
 .container {
-    max-width: 800px;
+    max-width: 680px;
+}
+
+.navbar {
+    background-color: #BDD2FA;
+    box-shadow: 0 0.25rem 0.1rem #BDD2FA;
 }
 
 .navbar-light .navbar-brand {
@@ -35,4 +52,8 @@ footer {
 .navbar-brand {
     font-size: 3.2rem;
     font-weight: 600;
+}
+
+.row {
+    width: 100%;
 }
