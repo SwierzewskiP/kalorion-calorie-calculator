@@ -8,7 +8,9 @@
 <nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="container">
-    <h5>Twoje dzienne zapotrzebowanie kaloryczne wynosi:</h5>
+
+    <h4 th:text="'Witaj, ' + ${name} + '!'"></h4>
+    <p>Twoje dzienne zapotrzebowanie kaloryczne wynosi:</p>
     <h2 th:text="${calculatedCalories}"></h2>
     <p>Twój PPM* wynosi:</p>
     <h3 th:text="${calculatedBMR}"></h3>

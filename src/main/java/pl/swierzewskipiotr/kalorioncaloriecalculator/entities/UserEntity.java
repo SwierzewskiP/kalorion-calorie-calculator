@@ -20,8 +20,7 @@ import java.util.Set;
 public class UserEntity {
     @Id
     private Integer githubId;
-
-    private String userName;
+    private String name;
     private Sex sex;
     private LocalDate dateOfBirth;
     private int heightInCms;

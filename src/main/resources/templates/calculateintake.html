@@ -11,13 +11,13 @@
     <div class="container">
         <h4>Podaj swoje dane:</h4>
         <form method="post" th:action="@{/calculateintake}" th:object="${userDTO}" enctype="multipart/form-data">
-            <!--    <div>-->
-            <!--        <label for="nameInput" >Nazwa użytkownika</label>-->
-            <!--    </div>-->
-            <!--    <div>-->
-            <!--        <input id="nameInput" type="text" th:field="*{userName}" required>-->
-            <!--    </div>-->
-            <!--    <br>-->
+
+            <div class="row mb-4">
+                <label for="nameInput" class="col-sm-3 col-form-label">Imię</label>
+                <div class="col-sm-9">
+                    <input id="nameInput" class="form-control" type="text" th:field="*{name}" required>
+                </div>
+            </div>
 
             <div class="row mb-4">
                 <label for="dateOfBirthInput" class="col-sm-3 col-form-label">Data urodzenia</label>
@@ -33,7 +33,7 @@
                     <div class="form-check mb-2"
                          th:each="sex : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex).values()}">
                         <input class="form-check-input" th:id="'sexInput_' + ${sex.name}" type="radio"
-                               th:value="${sex}" th:field="*{sex}"></input>
+                               th:value="${sex}" th:field="*{sex}" required></input>
                         <label class="form-check-label" th:for="'sexInput_' + ${sex.name}"
                                th:text="${sex.description}"></label>
                     </div>
@@ -61,7 +61,7 @@
                     <div class="form-check mb-2"
                          th:each="pal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel).values()}">
                         <input class="form-check-input" th:id="'palInput_' + ${pal}" type="radio" th:value="${pal}"
-                               th:field="*{pal}"></input>
+                               th:field="*{pal}" required></input>
                         <label class="form-check-label" th:for="'palInput_' + ${pal}"
                                th:text="${pal.description}"></label>
                     </div>
@@ -75,7 +75,7 @@
                          th:each="dietGoal : ${T(pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal).values()}">
                         <input class="form-check-input" th:id="'dietGoalInput_' + ${dietGoal}" type="radio"
                                th:value="${dietGoal}"
-                               th:field="*{dietGoal}"></input>
+                               th:field="*{dietGoal}" required></input>
                         <label class="form-check-label" th:for="'dietGoalInput_' + ${dietGoal}"
                                th:text="${dietGoal.description}"></label>
                     </div>

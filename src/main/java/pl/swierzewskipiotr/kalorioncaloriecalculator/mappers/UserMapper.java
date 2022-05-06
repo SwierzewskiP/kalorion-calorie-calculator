@@ -13,7 +13,7 @@ public class UserMapper {
 
     public UserDTO toDTO(UserEntity userEntity) {
         final UserDTO userDTO = new UserDTO();
-        userDTO.setUserName(userEntity.getUserName());
+        userDTO.setName(userEntity.getName());
         userDTO.setSex(userEntity.getSex());
         userDTO.setDateOfBirth(userEntity.getDateOfBirth());
         userDTO.setHeightInCms(userEntity.getHeightInCms());

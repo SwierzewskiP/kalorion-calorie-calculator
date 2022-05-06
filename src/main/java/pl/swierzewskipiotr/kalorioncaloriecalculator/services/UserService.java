@@ -18,40 +18,42 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public Integer addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
+    public void addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
         final UserEntity userEntity = new UserEntity();
         Integer githubId = authentication.getPrincipal().getAttribute("id");
         userEntity.setGithubId(githubId);
-        String name = authentication.getPrincipal().getAttribute("name");
-        if (name == null) {
-            name = authentication.getPrincipal().getAttribute("login");
-        }
-        userEntity.setUserName(name);
+        userEntity.setName(userDTO.getName());
         userEntity.setSex(userDTO.getSex());
         userEntity.setDateOfBirth(userDTO.getDateOfBirth());
         userEntity.setHeightInCms(userDTO.getHeightInCms());
         userEntity.setWeightInKgs(userDTO.getWeightInKgs());
         userEntity.setBmr(userDTO.getBMR());
         userEntity.setCalculatedCaloricIntake(userDTO.getTDEEmodifiedByDietGoal());
-        UserEntity savedUser = userRepository.save(userEntity);
-        return savedUser.getGithubId();
+
+        userRepository.save(userEntity);
+    }
+
+    public String getNameByUserId(Integer userId) {
+        UserDTO userDTO = userMapper.toDTO(getUserEntity(userId));
+
+        return userDTO.getName();
     }
 
     public int getBMRbyUserId(Integer userId) {
-        final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-        if (userEntityOptional.isEmpty()) {
-            throw new RuntimeException("No user of id: " + userId);
-        }
-        UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
+        UserDTO userDTO = userMapper.toDTO(getUserEntity(userId));
         return userDTO.getBMR();
     }
 
     public int getCalculatedCaloriesByUserId(Integer userId) {
+        UserDTO userDTO = userMapper.toDTO(getUserEntity(userId));
+        return userDTO.getCalculatedCalorieIntake();
+    }
+
+    private UserEntity getUserEntity(Integer userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("No user of id: " + userId);
         }
-        UserDTO userDTO = userMapper.toDTO(userEntityOptional.get());
-        return userDTO.getCalculatedCalorieIntake();
+        return userEntityOptional.get();
     }
 }

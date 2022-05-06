@@ -10,9 +10,9 @@ import java.time.LocalDate;
 
 @Data
 public class UserDTO {
-    private String userName;
-    private Sex sex;
 
+    private String name;
+    private Sex sex;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     private int heightInCms;
