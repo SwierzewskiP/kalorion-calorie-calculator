@@ -16,19 +16,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final UserCalculationsService userCalculationsService;
     private final UserMapper userMapper;
 
     public void addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
-        final UserEntity userEntity = new UserEntity();
+        userCalculationsService.calculateBmrAndCaloriesToEatDaily(userDTO);
         Integer githubId = authentication.getPrincipal().getAttribute("id");
+        UserEntity userEntity = userMapper.toEntity(userDTO);
         userEntity.setGithubId(githubId);
-        userEntity.setName(userDTO.getName());
-        userEntity.setSex(userDTO.getSex());
-        userEntity.setDateOfBirth(userDTO.getDateOfBirth());
-        userEntity.setHeightInCms(userDTO.getHeightInCms());
-        userEntity.setWeightInKgs(userDTO.getWeightInKgs());
-        userEntity.setBmr(userDTO.getBMR());
-        userEntity.setCalculatedCaloricIntake(userDTO.getTDEEmodifiedByDietGoal());
 
         userRepository.save(userEntity);
     }
@@ -41,12 +36,12 @@ public class UserService {
 
     public int getBMRbyUserId(Integer userId) {
         UserDTO userDTO = userMapper.toDTO(getUserEntity(userId));
-        return userDTO.getBMR();
+        return userDTO.getBmr();
     }
 
     public int getCalculatedCaloriesByUserId(Integer userId) {
         UserDTO userDTO = userMapper.toDTO(getUserEntity(userId));
-        return userDTO.getCalculatedCalorieIntake();
+        return userDTO.getCaloriesToEatDaily();
     }
 
     private UserEntity getUserEntity(Integer userId) {

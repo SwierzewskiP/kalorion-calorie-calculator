@@ -18,8 +18,22 @@ public class UserMapper {
         userDTO.setDateOfBirth(userEntity.getDateOfBirth());
         userDTO.setHeightInCms(userEntity.getHeightInCms());
         userDTO.setWeightInKgs(userEntity.getWeightInKgs());
-        userDTO.setCalculatedCalorieIntake(userEntity.getCalculatedCaloricIntake());
+        userDTO.setBmr(userEntity.getBmr());
+        userDTO.setCaloriesToEatDaily(userEntity.getCaloriesToEatDaily());
 
         return userDTO;
+    }
+
+    public UserEntity toEntity(UserDTO userDTO) {
+        final UserEntity userEntity = new UserEntity();
+        userEntity.setName(userDTO.getName());
+        userEntity.setSex(userDTO.getSex());
+        userEntity.setDateOfBirth(userDTO.getDateOfBirth());
+        userEntity.setHeightInCms(userDTO.getHeightInCms());
+        userEntity.setWeightInKgs(userDTO.getWeightInKgs());
+        userEntity.setBmr(userDTO.getBmr());
+        userEntity.setCaloriesToEatDaily(userDTO.getCaloriesToEatDaily());
+
+        return userEntity;
     }
 }

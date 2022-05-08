@@ -31,7 +31,7 @@ public class FrontendController {
     }
 
     @GetMapping("/calculateintake")
-    public String calculateIntake(Model model, OAuth2AuthenticationToken authentication) {
+    public String calculateIntake(Model model) {
         final UserDTO userDTO = new UserDTO();
         userDTO.setDateOfBirth(LocalDate.of(2000, 1, 1));
         userDTO.setHeightInCms(170);
@@ -41,7 +41,7 @@ public class FrontendController {
     }
 
     @PostMapping("/calculateintake")
-    public String postCalculateIntake(Model model, UserDTO userDTO,  OAuth2AuthenticationToken authentication) {
+    public String postCalculateIntake(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
         userService.addNewUser(userDTO, authentication);
         return "redirect:/yourcalories";
     }

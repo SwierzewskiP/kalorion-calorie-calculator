@@ -26,7 +26,7 @@ public class UserEntity {
     private int heightInCms;
     private int weightInKgs;
     private int bmr;
-    private int calculatedCaloricIntake;
+    private int caloriesToEatDaily;
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL
