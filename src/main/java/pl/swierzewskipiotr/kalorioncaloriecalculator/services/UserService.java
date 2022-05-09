@@ -1,7 +1,7 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
@@ -11,9 +11,10 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.UserRepository
 
 import java.util.Optional;
 
-@Service
-@Log4j2
+
+@Slf4j
 @RequiredArgsConstructor
+@Service
 public class UserService {
     private final UserRepository userRepository;
     private final UserCalculationsService userCalculationsService;
@@ -26,6 +27,7 @@ public class UserService {
         userEntity.setGithubId(githubId);
 
         userRepository.save(userEntity);
+        log.info("Pomyślnie dodano użytkownika z GitHub id: " + githubId);
     }
 
     public String getNameByUserId(Integer userId) {
@@ -52,3 +54,4 @@ public class UserService {
         return userEntityOptional.get();
     }
 }
+
