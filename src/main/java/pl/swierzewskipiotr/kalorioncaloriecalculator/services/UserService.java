@@ -21,7 +21,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     public void addNewUser(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
-        userCalculationsService.calculateBmrAndCaloriesToEatDaily(userDTO);
+        userCalculationsService.calculateAndSetBasalMetabolicRate(userDTO);
+        userCalculationsService.calculateAndSetCaloriesToEatDaily(userDTO);
         Integer githubId = authentication.getPrincipal().getAttribute("id");
         UserEntity userEntity = userMapper.toEntity(userDTO);
         userEntity.setGithubId(githubId);

@@ -1,8 +1,6 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
 
 import javax.persistence.CascadeType;
@@ -13,10 +11,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserEntity {
     @Id
     private Integer githubId;
@@ -32,4 +28,44 @@ public class UserEntity {
             cascade = CascadeType.ALL
     )
     private Set<MealEntity> meals = new HashSet<>();
+
+    public UserEntity setGithubId(Integer githubId) {
+        this.githubId = githubId;
+        return this;
+    }
+
+    public UserEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public UserEntity setSex(Sex sex) {
+        this.sex = sex;
+        return this;
+    }
+
+    public UserEntity setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+        return this;
+    }
+
+    public UserEntity setHeightInCms(int heightInCms) {
+        this.heightInCms = heightInCms;
+        return this;
+    }
+
+    public UserEntity setWeightInKgs(int weightInKgs) {
+        this.weightInKgs = weightInKgs;
+        return this;
+    }
+
+    public UserEntity setBmr(int bmr) {
+        this.bmr = bmr;
+        return this;
+    }
+
+    public UserEntity setCaloriesToEatDaily(int caloriesToEatDaily) {
+        this.caloriesToEatDaily = caloriesToEatDaily;
+        return this;
+    }
 }
