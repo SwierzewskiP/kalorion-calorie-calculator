@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
@@ -13,7 +14,7 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.services.HelloService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.ProductService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
 
-import java.time.LocalDate;
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,15 +34,15 @@ public class FrontendController {
     @GetMapping("/calculateintake")
     public String calculateIntake(Model model) {
         final UserDTO userDTO = new UserDTO();
-        userDTO.setDateOfBirth(LocalDate.of(2000, 1, 1));
-        userDTO.setHeightInCms(170);
-        userDTO.setWeightInKgs(65);
         model.addAttribute("userDTO", userDTO);
         return "calculateintake";
     }
 
     @PostMapping("/calculateintake")
-    public String postCalculateIntake(UserDTO userDTO, OAuth2AuthenticationToken authentication) {
+    public String postCalculateIntake(@Valid UserDTO userDTO, BindingResult result, OAuth2AuthenticationToken authentication) {
+        if (result.hasErrors()) {
+            return "/calculateintake";
+        }
         userService.addNewUser(userDTO, authentication);
         return "redirect:/yourcalories";
     }
