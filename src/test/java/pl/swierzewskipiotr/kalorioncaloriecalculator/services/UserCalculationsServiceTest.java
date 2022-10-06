@@ -23,7 +23,8 @@ class UserCalculationsServiceTest {
         calculationsService = new UserCalculationsService();
 
         maleUser = new UserDTO()
-                .setDateOfBirth(LocalDate.of(1999, 5, 19))
+                .setDateOfBirth(LocalDate.of(LocalDate.now().getYear() - 24,
+                        12, 31))
                 .setWeightInKgs(70)
                 .setHeightInCms(175)
                 .setSex(Sex.MALE)
@@ -31,7 +32,8 @@ class UserCalculationsServiceTest {
                 .setDietGoal(DietGoal.MUSCLE_GAIN);
 
         femaleUser = new UserDTO()
-                .setDateOfBirth(LocalDate.of(2002, 7, 13))
+                .setDateOfBirth(LocalDate.of(LocalDate.now().getYear() - 20,
+                        12, 31))
                 .setWeightInKgs(73)
                 .setHeightInCms(164)
                 .setSex(Sex.FEMALE)
