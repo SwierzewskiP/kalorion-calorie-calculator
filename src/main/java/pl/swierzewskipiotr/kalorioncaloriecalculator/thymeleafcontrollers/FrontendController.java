@@ -31,30 +31,44 @@ public class FrontendController {
         return "index";
     }
 
-    @GetMapping("/calculateintake")
-    public String calculateIntake(Model model) {
+    @GetMapping("/userform")
+    public String getUserForm(Model model, OAuth2AuthenticationToken authentication) {
+        Integer userId = authentication.getPrincipal().getAttribute("id");
+        if (userService.existsById(userId)) {
+            return "redirect:/fooddiary";
+        }
         final UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
-        return "calculateintake";
+        return "userform";
     }
 
-    @PostMapping("/calculateintake")
-    public String postCalculateIntake(@Valid UserDTO userDTO, BindingResult result, OAuth2AuthenticationToken authentication) {
+    @PostMapping("/userform")
+    public String postUserForm(@Valid UserDTO userDTO, BindingResult result, OAuth2AuthenticationToken authentication) {
         if (result.hasErrors()) {
-            return "/calculateintake";
+            return "userform";
         }
         userService.addNewUser(userDTO, authentication);
         return "redirect:/yourcalories";
     }
 
     @GetMapping("/yourcalories")
-    public String yourCalories(Model model, OAuth2AuthenticationToken authentication) {
+    public String getYourCalories(Model model, OAuth2AuthenticationToken authentication) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
         model.addAttribute("name", userService.getNameByUserId(userId));
-        model.addAttribute("calculatedCalories",
-                userService.getCalculatedCaloriesByUserId(userId));
+        model.addAttribute("calculatedCalories", userService.getCalculatedCaloriesByUserId(userId));
         model.addAttribute("calculatedBMR", userService.getBMRbyUserId(userId));
         return "yourcalories";
+    }
+
+    @GetMapping("/fooddiary")
+    public String getFoodDiary(Model model) {
+
+        return "fooddiary";
+    }
+
+    @GetMapping("/search")
+    public String getSearch() {
+        return "search";
     }
 
     @GetMapping("/products")

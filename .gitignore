@@ -35,3 +35,6 @@ build/
 ### secret properties ###
 /src/main/resources/application*secret.properties
 /src/main/resources/localhost.p12
+
+###logging
+/logs/

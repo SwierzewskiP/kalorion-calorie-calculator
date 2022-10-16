@@ -10,7 +10,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/calculateintake").authenticated()
+                .antMatchers("/userform").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login();

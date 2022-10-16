@@ -54,5 +54,9 @@ public class UserService {
         }
         return userEntityOptional.get();
     }
+
+    public boolean existsById(Integer userId) {
+        return userRepository.existsById(userId);
+    }
 }
 
