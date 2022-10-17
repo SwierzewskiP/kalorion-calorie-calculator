@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Entity
+@Entity(name = "user")
 public class UserEntity {
     @Id
     private Integer githubId;
@@ -27,7 +27,7 @@ public class UserEntity {
             mappedBy = "user",
             cascade = CascadeType.ALL
     )
-    private Set<MealEntity> meals = new HashSet<>();
+    private List<MealEntity> meals = new ArrayList<>();
 
     public UserEntity setGithubId(Integer githubId) {
         this.githubId = githubId;
