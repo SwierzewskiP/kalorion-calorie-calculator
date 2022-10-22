@@ -8,9 +8,49 @@
 <nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="container">
-
+    <main>
+        <h4>Twój dziennik posiłków</h4>
+        <table class="table table-hover table-bordered" th:each="entry : ${allMeals}">
+            <thead class="table-light">
+            <tr>
+                <th th:text="${entry.key.description}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="meal : ${entry.value}">
+                <td>
+                    <table class="table-sm container">
+                        <tr class="row">
+                            <td class="col" th:text="${meal.name}"></td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col" th:text="${meal.kcal}"></td>
+                            <td class="col" th:text="${meal.protein}"></td>
+                            <td class="col" th:text="${meal.fat}"></td>
+                            <td class="col" th:text="${meal.carb}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>
+                    <table class="table-sm container">
+                        <tr class="row">
+                            <td class="col">total kcal</td>
+                            <td class="col">total białko</td>
+                            <td class="col">total tłuszcz</td>
+                            <td class="col">total węglowodany</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </main>
 </div>
-
+<div class="footer-fix"></div>
 <footer th:replace="fragments/footer :: footer"></footer>
 
 </body>

@@ -8,17 +8,19 @@
 <nav th:replace="fragments/navigation :: nav"></nav>
 
 <div class="container">
+    <main>
+        <h4 th:text="'Witaj, ' + ${name} + '!'"></h4>
+        <p>Twoje dzienne zapotrzebowanie kaloryczne wynosi:</p>
+        <h2 th:text="${calculatedCalories}"></h2>
+        <p>Twój PPM* wynosi:</p>
+        <h3 th:text="${calculatedBMR}"></h3>
 
-    <h4 th:text="'Witaj, ' + ${name} + '!'"></h4>
-    <p>Twoje dzienne zapotrzebowanie kaloryczne wynosi:</p>
-    <h2 th:text="${calculatedCalories}"></h2>
-    <p>Twój PPM* wynosi:</p>
-    <h3 th:text="${calculatedBMR}"></h3>
-
-    <p>*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
-        zapewnić prawidłowe funkcjonowanie organizmu. Nie zaleca się jeść mniej kalorii niż ta wartość (dieta
-        głodówkowa).</p>
-    <p>Jesteś już gotów na główny cel naszej podróży - dodawanie i podliczanie posiłków!<br> Kliknij <a th:href="@{/fooddiary}">tutaj</a>, by przejść do dziennika posiłków :)</p>
+        <p>*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
+            zapewnić prawidłowe funkcjonowanie organizmu. Nie zaleca się jeść mniej kalorii niż ta wartość (dieta
+            głodówkowa).</p>
+        <p>Jesteś już gotów na główny cel naszej podróży - dodawanie i podliczanie posiłków!<br> Kliknij <a
+                th:href="@{/fooddiary}">tutaj</a>, by przejść do dziennika posiłków :)</p>
+    </main>
 </div>
 
 <footer th:replace="fragments/footer :: footer"></footer>

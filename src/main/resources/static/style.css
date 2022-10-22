@@ -7,6 +7,10 @@ body {
     min-height: 100%;
 }
 
+main {
+    margin-top: 3rem;
+}
+
 a:link {
     text-decoration: none;
 }
@@ -21,10 +25,6 @@ a:hover {
 
 a:active {
     text-decoration: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    margin: 25px 0;
 }
 
 footer {
@@ -51,9 +51,19 @@ footer {
     margin-right: 1rem;
 }
 
+p {
+    margin-top: 1.5rem;
+}
+
+.form {
+    margin-top: 2rem;
+}
+
+
 /* I override bootstrap classes below */
+
 .container {
-    max-width: 680px;
+    max-width: 700px;
 }
 
 .navbar {
@@ -70,6 +80,15 @@ footer {
     font-weight: 600;
 }
 
-.row {
-    width: 100%;
+tr .row {
+    padding: 0 1.5rem;
+}
+
+.table {
+    margin-top: 1rem;
+}
+
+.table thead {
+    height: 52px;
+    vertical-align: middle;
 }

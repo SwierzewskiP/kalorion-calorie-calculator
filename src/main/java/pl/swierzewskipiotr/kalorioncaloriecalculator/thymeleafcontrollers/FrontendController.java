@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.HelloService;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.services.MealService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.ProductService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,11 +26,13 @@ import java.util.List;
 public class FrontendController {
     private final HelloService helloService;
     private final UserService userService;
+    private final MealService mealService;
     private final ProductService productService;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("greeting", helloService.fetchHelloMessage());
+
         return "index";
     }
 
@@ -39,6 +44,7 @@ public class FrontendController {
         }
         final UserDTO userDTO = new UserDTO();
         model.addAttribute("userDTO", userDTO);
+
         return "userform";
     }
 
@@ -48,6 +54,7 @@ public class FrontendController {
             return "userform";
         }
         userService.addNewUser(userDTO, authentication);
+
         return "redirect:/yourcalories";
     }
 
@@ -57,11 +64,15 @@ public class FrontendController {
         model.addAttribute("name", userService.getNameByUserId(userId));
         model.addAttribute("calculatedCalories", userService.getCalculatedCaloriesByUserId(userId));
         model.addAttribute("calculatedBMR", userService.getBMRbyUserId(userId));
+
         return "yourcalories";
     }
 
     @GetMapping("/fooddiary")
-    public String getFoodDiary(Model model) {
+    public String getFoodDiary(OAuth2AuthenticationToken authentication, Model model) {
+        Integer userId = authentication.getPrincipal().getAttribute("id");
+        UserEntity userEntity = userService.getUserEntity(userId);
+        model.addAttribute("allMeals", mealService.getAllMealsForGivenDay(userEntity, LocalDate.now()));
 
         return "fooddiary";
     }

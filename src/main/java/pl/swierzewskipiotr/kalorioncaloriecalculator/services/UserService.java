@@ -47,7 +47,7 @@ public class UserService {
         return userDTO.getCaloriesToEatDaily();
     }
 
-    private UserEntity getUserEntity(Integer userId) {
+    public UserEntity getUserEntity(Integer userId) {
         final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("No user of id: " + userId);
