@@ -1,12 +1,12 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.thymeleafcontrollers;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
@@ -22,7 +22,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
-@Log4j2
 public class FrontendController {
     private final HelloService helloService;
     private final UserService userService;
@@ -77,9 +76,10 @@ public class FrontendController {
         return "fooddiary";
     }
 
-    @GetMapping("/search")
-    public String getSearch() {
-        return "search";
+    @GetMapping("/fooddiary/delete/{id}")
+    public String getMealToDelete(@PathVariable Long id) {
+        mealService.deleteMeal(id);
+        return "redirect:/fooddiary";
     }
 
     @GetMapping("/products")

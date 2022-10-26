@@ -59,6 +59,16 @@ p {
     margin-top: 2rem;
 }
 
+#edit-icon {
+    height: 16px;
+    width: 16px;
+}
+
+#delete-icon {
+    height: 16px;
+    width: 14px;
+}
+
 
 /* I override bootstrap classes below */
 

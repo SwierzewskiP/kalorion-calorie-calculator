@@ -21,15 +21,52 @@
                 <td>
                     <table class="table-sm container">
                         <tr class="row">
-                            <td class="col" th:text="${meal.name}"></td>
+                            <td class="col position-relative">
+                                <span th:text="${meal.name}"></span>
+                                <span class="position-absolute top-1 end-0">
+                                <input type="image" id="edit-icon" src="/img/pencil-square.svg" alt="Edit"/>
+                                    <!-- Button trigger modal -->
+                                <input type="image" id="delete-icon" data-bs-toggle="modal"
+                                       th:attr="data-bs-target=${'#deleteModal' + meal.id}" data-row="${meal}"
+                                       src="/img/x-square.svg" alt="Delete"/>
+                                </span>
+                            </td>
                         </tr>
-                        <tr class="row">
+                        <tr class="row text-muted fw-light small">
+                            <td class="col" th:text="${meal.weight} + ' g'"></td>
+                        </tr>
+                        <tr class="row text-muted fw-light small">
                             <td class="col" th:text="${meal.kcal}"></td>
                             <td class="col" th:text="${meal.protein}"></td>
                             <td class="col" th:text="${meal.fat}"></td>
                             <td class="col" th:text="${meal.carb}"></td>
                         </tr>
                     </table>
+                    <div th:attr="id=${'deleteModal' + meal.id}" class="modal fade" id="deleteModal" tabindex="-1"
+                         aria-labelledby="modalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 id="modalLabel">Usuń</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <span th:text="'Czy na pewno chcesz usunąć ' + ${meal.name} + '?'"></span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Anuluj
+                                    </button>
+                                    <form action="#" th:action="@{/fooddiary/delete/{id}(id=${meal.id})}"
+                                          th:method="get">
+                                        <button type="submit" class="btn btn-primary">Usuń</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -37,7 +74,7 @@
             <tr>
                 <td>
                     <table class="table-sm container">
-                        <tr class="row">
+                        <tr class="row text-muted fw-light">
                             <td class="col">total kcal</td>
                             <td class="col">total białko</td>
                             <td class="col">total tłuszcz</td>

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MealDTO {
-
+    private Long id;
     private String name;
     private int kcal;
     private double protein;

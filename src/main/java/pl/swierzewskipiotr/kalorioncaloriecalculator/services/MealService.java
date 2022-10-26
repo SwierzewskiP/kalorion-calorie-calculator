@@ -1,6 +1,7 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.MealDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.MealEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MealService {
@@ -36,5 +38,12 @@ public class MealService {
             allMeals.put(type, allMealsOfType);
         }
         return allMeals;
+    }
+
+    public void deleteMeal(Long id) {
+        MealEntity meal = mealRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Brak posiłku o takim ID:" + id));
+        mealRepository.delete(meal);
+        log.info("Usunięto posiłek o ID: " + id);
     }
 }

@@ -23,6 +23,11 @@ public class MealEntity {
     private MealType mealType;
     private LocalDate date;
 
+    public MealEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public MealEntity setName(String name) {
         this.name = name;
         return this;
