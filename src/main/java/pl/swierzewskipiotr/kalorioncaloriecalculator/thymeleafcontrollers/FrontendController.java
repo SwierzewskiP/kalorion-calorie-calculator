@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.HelloService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.MealService;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.ProductService;
@@ -70,8 +70,8 @@ public class FrontendController {
     @GetMapping("/fooddiary")
     public String getFoodDiary(OAuth2AuthenticationToken authentication, Model model) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
-        UserEntity userEntity = userService.getUserEntity(userId);
-        model.addAttribute("allMeals", mealService.getAllMealsForGivenDay(userEntity, LocalDate.now()));
+        User user = userService.getUserEntity(userId);
+        model.addAttribute("allMeals", mealService.getAllMealsForGivenDay(user, LocalDate.now()));
 
         return "fooddiary";
     }

@@ -3,31 +3,24 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.mappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.ProductEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Product;
 
 @Component
 @RequiredArgsConstructor
 public class ProductMapper {
 
-    public ProductDTO toDTO(ProductEntity entity) {
+    public ProductDTO toDTO(Product entity) {
         final ProductDTO dto = new ProductDTO();
-
         dto.setName(entity.getName());
-        dto.setKcalPer100g(entity.getKcalPer100g());
-        dto.setProteinsPer100g(entity.getProteinsPer100g());
-        dto.setFatsPer100g(entity.getFatsPer100g());
-        dto.setCarbsPer100g(entity.getCarbsPer100g());
+        dto.setMacroPer100g(entity.getMacroPer100g());
 
         return dto;
     }
 
-    public ProductEntity toEntity(ProductDTO dto) {
-        final ProductEntity entity = new ProductEntity();
+    public Product toEntity(ProductDTO dto) {
+        final Product entity = new Product();
         entity.setName(dto.getName());
-        entity.setKcalPer100g(dto.getKcalPer100g());
-        entity.setProteinsPer100g(dto.getProteinsPer100g());
-        entity.setFatsPer100g(dto.getFatsPer100g());
-        entity.setCarbsPer100g(dto.getCarbsPer100g());
+        entity.setMacroPer100g(dto.getMacroPer100g());
 
         return entity;
     }

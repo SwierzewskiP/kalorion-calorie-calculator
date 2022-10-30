@@ -1,7 +1,7 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 
-public interface UserRepository  extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository  extends JpaRepository<User, Integer> {
 }

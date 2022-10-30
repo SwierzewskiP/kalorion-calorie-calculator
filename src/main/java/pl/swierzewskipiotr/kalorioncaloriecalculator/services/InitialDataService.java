@@ -2,46 +2,40 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.MealEntity;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Macro;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Meal;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Product;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.MealType;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.MealRepository;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.ProductRepository;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.UserRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Log4j2
 @Profile("!prod")
 public class InitialDataService implements CommandLineRunner {
-
-    @Value("${fatsecret-platform.key}")
-    private String key;
-
-    @Value("${fatsecret-platform.secret}")
-    private String secret;
-
-    private final MealRepository mealRepository;
-
+    private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final UserEntity andrzej = new UserEntity();
 
     @Override
     @Transactional
     public void run(String... args) {
-        fillSampleUser();
-        fillSampleMeals();
+        fillSampleUserWithMealsForToday();
     }
 
-    void fillSampleUser() {
-        andrzej.setGithubId(65499866)
+    void fillSampleUserWithMealsForToday() {
+
+        final User user1 = new User()
+                .setId(65499866)
                 .setBmr(1645)
                 .setCaloriesToEatDaily(2533)
                 .setDateOfBirth(LocalDate.of(1988, 12, 14))
@@ -50,72 +44,34 @@ public class InitialDataService implements CommandLineRunner {
                 .setSex(Sex.MALE)
                 .setWeightInKgs(68);
 
-        userRepository.save(andrzej);
-        log.info("Dodano przykładowego użytkownika: " + andrzej);
-    }
+        final Macro macroOfBreadPer100g = new Macro(241, 6.9, 1.1, 49);
+        final Product bread = new Product(null, "Oskroba Chleb Baltonowski 500g", macroOfBreadPer100g);
+        productRepository.save(bread);
+        final Meal breadAsMeal = new Meal(null, bread, macroOfBreadPer100g, 100, user1, MealType.BREAKFAST, LocalDate.now());
 
-    void fillSampleMeals() {
-        log.info("Wypełniam bazę danych przykładowymi produktami...");
+        final Macro macroOfYogurtPer100g = new Macro(63, 4.2, 2.5, 5.8);
+        final Product yogurt = new Product(null, "Jogurt Naturalny (Kesem)", macroOfYogurtPer100g);
+        productRepository.save(yogurt);
+        final Meal yogurtAsMeal = new Meal(null, yogurt, macroOfYogurtPer100g, 100, user1, MealType.BRUNCH, LocalDate.now());
 
-        final MealEntity chlebBaltonowski = new MealEntity()
-                .setDate(LocalDate.now())
-                .setMealType(MealType.BREAKFAST)
-                .setName("Oskroba Chleb Baltonowski 500g")
-                .setKcal(241)
-                .setWeight(100)
-                .setProtein(6.9)
-                .setFat(1.1)
-                .setCarb(49.0)
-                .setUser(andrzej);
+        final Macro macroOfEggPer100g = new Macro(139, 12.5, 9.7, 0.6);
+        final Product egg = new Product(null, "Jajo kurze rozmiar L (Lidl)", macroOfEggPer100g);
+        productRepository.save(egg);
+        final Meal eggAsMeal = new Meal(null, egg, macroOfEggPer100g, 100, user1, MealType.LUNCH, LocalDate.now());
 
-        final MealEntity jogurtNaturalny = new MealEntity()
-                .setDate(LocalDate.now())
-                .setMealType(MealType.BRUNCH)
-                .setName("Jogurt Naturalny (Kesem)")
-                .setKcal(63)
-                .setWeight(100)
-                .setProtein(4.2)
-                .setFat(2.5)
-                .setCarb(5.8)
-                .setUser(andrzej);
+        final Macro macroOfBriePer100g = new Macro(360, 17, 32, 1);
+        final Product brie = new Product(null, "Ser Brie", macroOfBriePer100g);
+        productRepository.save(brie);
+        final Meal brieAsMeal = new Meal(null, brie, macroOfBriePer100g, 100, user1, MealType.DINNER, LocalDate.now());
 
-        final MealEntity jajoKurzeL = new MealEntity()
-                .setDate(LocalDate.now())
-                .setMealType(MealType.LUNCH)
-                .setName("Jajo kurze rozmiar L (Lidl)")
-                .setKcal(139)
-                .setWeight(100)
-                .setProtein(12.5)
-                .setFat(9.7)
-                .setCarb(0.6)
-                .setUser(andrzej);
+        final Macro macroOfTomatoPer100g = new Macro(19, 0.9, 0.2, 4.1);
+        final Product tomato = new Product(null, "Pomidor", macroOfTomatoPer100g);
+        productRepository.save(tomato);
+        final Meal tomatoAsMeal = new Meal(null, tomato, macroOfTomatoPer100g, 100, user1, MealType.DINNER, LocalDate.now());
 
-        final MealEntity serBrie = new MealEntity()
-                .setDate(LocalDate.now())
-                .setMealType(MealType.DINNER)
-                .setName("Ser Brie")
-                .setKcal(360)
-                .setWeight(100)
-                .setProtein(17)
-                .setFat(32)
-                .setCarb(1)
-                .setUser(andrzej);
+        user1.getMeals().addAll(List.of(breadAsMeal, yogurtAsMeal, eggAsMeal, brieAsMeal, tomatoAsMeal));
+        userRepository.save(user1);
 
-        final MealEntity pomidor = new MealEntity()
-                .setDate(LocalDate.now())
-                .setMealType(MealType.DINNER)
-                .setName("Pomidor")
-                .setKcal(19)
-                .setWeight(100)
-                .setProtein(0.9)
-                .setFat(0.2)
-                .setCarb(4.1)
-                .setUser(andrzej);
-
-        mealRepository.save(chlebBaltonowski);
-        mealRepository.save(jogurtNaturalny);
-        mealRepository.save(jajoKurzeL);
-        mealRepository.save(serBrie);
-        mealRepository.save(pomidor);
+        log.info("Dodano przykładowego użytkownika " + user1.getName() + " wraz z posiłkami na dziś: " + user1.getMeals());
     }
 }

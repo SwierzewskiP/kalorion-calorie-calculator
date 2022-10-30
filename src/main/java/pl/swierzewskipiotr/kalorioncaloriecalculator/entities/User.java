@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity(name = "user")
-public class UserEntity {
+@Entity
+public class User {
     @Id
-    private Integer githubId;
+    private Integer id;
     private String name;
     private Sex sex;
     private LocalDate dateOfBirth;
@@ -23,48 +23,45 @@ public class UserEntity {
     private int weightInKgs;
     private int bmr;
     private int caloriesToEatDaily;
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL
-    )
-    private List<MealEntity> meals = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Meal> meals = new ArrayList<>();
 
-    public UserEntity setGithubId(Integer githubId) {
-        this.githubId = githubId;
+    public User setId(Integer id) {
+        this.id = id;
         return this;
     }
 
-    public UserEntity setName(String name) {
+    public User setName(String name) {
         this.name = name;
         return this;
     }
 
-    public UserEntity setSex(Sex sex) {
+    public User setSex(Sex sex) {
         this.sex = sex;
         return this;
     }
 
-    public UserEntity setDateOfBirth(LocalDate dateOfBirth) {
+    public User setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
 
-    public UserEntity setHeightInCms(int heightInCms) {
+    public User setHeightInCms(int heightInCms) {
         this.heightInCms = heightInCms;
         return this;
     }
 
-    public UserEntity setWeightInKgs(int weightInKgs) {
+    public User setWeightInKgs(int weightInKgs) {
         this.weightInKgs = weightInKgs;
         return this;
     }
 
-    public UserEntity setBmr(int bmr) {
+    public User setBmr(int bmr) {
         this.bmr = bmr;
         return this;
     }
 
-    public UserEntity setCaloriesToEatDaily(int caloriesToEatDaily) {
+    public User setCaloriesToEatDaily(int caloriesToEatDaily) {
         this.caloriesToEatDaily = caloriesToEatDaily;
         return this;
     }

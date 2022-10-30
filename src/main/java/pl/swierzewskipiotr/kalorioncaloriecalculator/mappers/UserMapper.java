@@ -3,35 +3,35 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.mappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 
 @Component
 @RequiredArgsConstructor
 public class UserMapper {
 
-    public UserDTO toDTO(UserEntity userEntity) {
+    public UserDTO toDTO(User user) {
         final UserDTO userDTO = new UserDTO();
-        userDTO.setName(userEntity.getName());
-        userDTO.setSex(userEntity.getSex());
-        userDTO.setDateOfBirth(userEntity.getDateOfBirth());
-        userDTO.setHeightInCms(userEntity.getHeightInCms());
-        userDTO.setWeightInKgs(userEntity.getWeightInKgs());
-        userDTO.setBmr(userEntity.getBmr());
-        userDTO.setCaloriesToEatDaily(userEntity.getCaloriesToEatDaily());
+        userDTO.setName(user.getName());
+        userDTO.setSex(user.getSex());
+        userDTO.setDateOfBirth(user.getDateOfBirth());
+        userDTO.setHeightInCms(user.getHeightInCms());
+        userDTO.setWeightInKgs(user.getWeightInKgs());
+        userDTO.setBmr(user.getBmr());
+        userDTO.setCaloriesToEatDaily(user.getCaloriesToEatDaily());
 
         return userDTO;
     }
 
-    public UserEntity toEntity(UserDTO userDTO) {
-        final UserEntity userEntity = new UserEntity();
-        userEntity.setName(userDTO.getName());
-        userEntity.setSex(userDTO.getSex());
-        userEntity.setDateOfBirth(userDTO.getDateOfBirth());
-        userEntity.setHeightInCms(userDTO.getHeightInCms());
-        userEntity.setWeightInKgs(userDTO.getWeightInKgs());
-        userEntity.setBmr(userDTO.getBmr());
-        userEntity.setCaloriesToEatDaily(userDTO.getCaloriesToEatDaily());
+    public User toEntity(UserDTO userDTO) {
+        final User user = new User();
+        user.setName(userDTO.getName());
+        user.setSex(userDTO.getSex());
+        user.setDateOfBirth(userDTO.getDateOfBirth());
+        user.setHeightInCms(userDTO.getHeightInCms());
+        user.setWeightInKgs(userDTO.getWeightInKgs());
+        user.setBmr(userDTO.getBmr());
+        user.setCaloriesToEatDaily(userDTO.getCaloriesToEatDaily());
 
-        return userEntity;
+        return user;
     }
 }

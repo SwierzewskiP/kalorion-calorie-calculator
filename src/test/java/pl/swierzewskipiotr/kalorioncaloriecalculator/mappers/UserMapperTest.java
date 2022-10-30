@@ -3,7 +3,7 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.mappers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ class UserMapperTest {
 
     private UserMapper mapper;
     private UserDTO userDTO;
-    private UserEntity userEntity;
+    private User user;
 
     @BeforeEach
     void setUp() {
@@ -30,7 +30,7 @@ class UserMapperTest {
                 .setBmr(1700)
                 .setCaloriesToEatDaily(3000);
 
-        userEntity = new UserEntity()
+        user = new User()
                 .setName("Julia")
                 .setSex(Sex.FEMALE)
                 .setDateOfBirth(LocalDate.of(2000, 12, 12))
@@ -43,23 +43,23 @@ class UserMapperTest {
     @Test
     void shouldMapEntityToDTO() {
         //when
-        UserDTO returnedDTO = mapper.toDTO(userEntity);
+        UserDTO returnedDTO = mapper.toDTO(user);
         //then
         assertThat(returnedDTO)
                 .isNotNull()
-                .hasFieldOrPropertyWithValue("name", userEntity.getName())
-                .hasFieldOrPropertyWithValue("sex", userEntity.getSex())
-                .hasFieldOrPropertyWithValue("dateOfBirth", userEntity.getDateOfBirth())
-                .hasFieldOrPropertyWithValue("heightInCms", userEntity.getHeightInCms())
-                .hasFieldOrPropertyWithValue("weightInKgs", userEntity.getWeightInKgs())
-                .hasFieldOrPropertyWithValue("bmr", userEntity.getBmr())
-                .hasFieldOrPropertyWithValue("caloriesToEatDaily", userEntity.getCaloriesToEatDaily());
+                .hasFieldOrPropertyWithValue("name", user.getName())
+                .hasFieldOrPropertyWithValue("sex", user.getSex())
+                .hasFieldOrPropertyWithValue("dateOfBirth", user.getDateOfBirth())
+                .hasFieldOrPropertyWithValue("heightInCms", user.getHeightInCms())
+                .hasFieldOrPropertyWithValue("weightInKgs", user.getWeightInKgs())
+                .hasFieldOrPropertyWithValue("bmr", user.getBmr())
+                .hasFieldOrPropertyWithValue("caloriesToEatDaily", user.getCaloriesToEatDaily());
     }
 
     @Test
     void shouldMapDTOtoEntity() {
         //when
-        UserEntity returnedEntity = mapper.toEntity(userDTO);
+        User returnedEntity = mapper.toEntity(userDTO);
         //then
         assertThat(returnedEntity)
                 .isNotNull()

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.MealDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.MealEntity;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Meal;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.MealType;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.mappers.MealMapper;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.MealRepository;
@@ -23,25 +23,25 @@ public class MealService {
 
     private final MealRepository mealRepository;
     private final MealMapper mealMapper;
-    public List<MealDTO> getAllMealsByUserAndDateAndMealType(UserEntity userEntity, LocalDate date, MealType type) {
-        final List<MealEntity> allEntities = mealRepository.findMealEntitiesByUserAndDateAndMealType(userEntity, date, type);
+    public List<MealDTO> getAllMealsByUserAndDateAndMealType(User user, LocalDate date, MealType type) {
+        final List<Meal> allEntities = mealRepository.findMealEntitiesByUserAndDateAndMealType(user, date, type);
 
         return allEntities.stream()
                 .map(mealMapper::toDTO)
                 .collect(toList());
     }
 
-    public EnumMap<MealType, List<MealDTO>> getAllMealsForGivenDay(UserEntity userEntity, LocalDate date) {
+    public EnumMap<MealType, List<MealDTO>> getAllMealsForGivenDay(User user, LocalDate date) {
     final EnumMap<MealType, List<MealDTO>> allMeals = new EnumMap<>(MealType.class);
         for (MealType type : MealType.values()) {
-            final List<MealDTO> allMealsOfType = getAllMealsByUserAndDateAndMealType(userEntity, date, type);
+            final List<MealDTO> allMealsOfType = getAllMealsByUserAndDateAndMealType(user, date, type);
             allMeals.put(type, allMealsOfType);
         }
         return allMeals;
     }
 
     public void deleteMeal(Long id) {
-        MealEntity meal = mealRepository.findById(id)
+        Meal meal = mealRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Brak posiłku o takim ID:" + id));
         mealRepository.delete(meal);
         log.info("Usunięto posiłek o ID: " + id);

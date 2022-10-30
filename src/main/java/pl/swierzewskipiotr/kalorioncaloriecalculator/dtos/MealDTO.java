@@ -1,14 +1,13 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.dtos;
 
 import lombok.Data;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Macro;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Product;
 
 @Data
 public class MealDTO {
     private Long id;
-    private String name;
-    private int kcal;
-    private double protein;
-    private double fat;
-    private double carb;
+    private Product product;
+    private Macro macro;
     private int weight;
 }

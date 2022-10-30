@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.ProductEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Product;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.mappers.ProductMapper;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.ProductRepository;
 
@@ -19,10 +19,10 @@ public class ProductService {
     private final ProductMapper productMapper;
 
     public List<ProductDTO> getAllProducts() {
-        final List<ProductEntity> allEntities = productRepository.findAll();
+        final List<Product> allEntities = productRepository.findAll();
 
         final List<ProductDTO> dtosList = allEntities.stream()
-                .map(entity -> productMapper.toDTO(entity))
+                .map(productMapper::toDTO)
                 .collect(Collectors.toList());
 
         return dtosList;

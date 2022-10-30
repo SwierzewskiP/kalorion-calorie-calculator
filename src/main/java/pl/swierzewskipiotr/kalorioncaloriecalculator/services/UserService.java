@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.UserEntity;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.mappers.UserMapper;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.repositories.UserRepository;
 
@@ -24,10 +24,10 @@ public class UserService {
         userCalculationsService.calculateAndSetBasalMetabolicRate(userDTO);
         userCalculationsService.calculateAndSetCaloriesToEatDaily(userDTO);
         Integer githubId = authentication.getPrincipal().getAttribute("id");
-        UserEntity userEntity = userMapper.toEntity(userDTO);
-        userEntity.setGithubId(githubId);
+        User user = userMapper.toEntity(userDTO);
+        user.setId(githubId);
 
-        userRepository.save(userEntity);
+        userRepository.save(user);
         log.info("Pomyślnie dodano użytkownika z GitHub id: " + githubId);
     }
 
@@ -47,8 +47,8 @@ public class UserService {
         return userDTO.getCaloriesToEatDaily();
     }
 
-    public UserEntity getUserEntity(Integer userId) {
-        final Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+    public User getUserEntity(Integer userId) {
+        final Optional<User> userEntityOptional = userRepository.findById(userId);
         if (userEntityOptional.isEmpty()) {
             throw new RuntimeException("No user of id: " + userId);
         }
