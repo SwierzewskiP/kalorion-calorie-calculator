@@ -10,4 +10,5 @@ public class MealDTO {
     private Product product;
     private Macro macro;
     private int weight;
+    private Macro totalMacroTempVar;
 }

@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.services.HelloService;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.services.MealService;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.services.ProductService;
-import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.services.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -25,6 +22,7 @@ import java.util.List;
 public class FrontendController {
     private final HelloService helloService;
     private final UserService userService;
+    private final MacroTotalService macroTotalService;
     private final MealService mealService;
     private final ProductService productService;
 
@@ -71,7 +69,8 @@ public class FrontendController {
     public String getFoodDiary(OAuth2AuthenticationToken authentication, Model model) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
         User user = userService.getUserEntity(userId);
-        model.addAttribute("allMeals", mealService.getAllMealsForGivenDay(user, LocalDate.now()));
+        var allMeals = mealService.getAllMealsForGivenDay(user, LocalDate.now());
+        model.addAttribute("allMealsWithTotalMacro", macroTotalService.getTotalForEachMealTypeForGivenDay(allMeals));
 
         return "fooddiary";
     }

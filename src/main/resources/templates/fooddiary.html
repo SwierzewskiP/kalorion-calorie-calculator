@@ -10,10 +10,24 @@
 <div class="container">
     <main>
         <h4>Twój dziennik posiłków</h4>
-        <table class="table table-hover table-bordered" th:each="entry : ${allMeals}">
+        <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
             <thead class="table-light">
             <tr>
-                <th th:text="${entry.key.description}"></th>
+                <td>
+                    <table class="table-sm container">
+                        <tr class="row">
+                            <td>
+                                <table></table>
+                            <th class="col" th:text="${entry.key.key.description}"></th>
+                        </tr>
+                        <tr class="row text-muted small">
+                            <th class="col fw-normal" th:text="${entry.key.value.kcal} + ' kcal'"></th>
+                            <th class="col fw-normal" th:text="${entry.key.value.protein} + ' białko'"></th>
+                            <th class="col fw-normal" th:text="${entry.key.value.fat} + ' tłuszcz'"></th>
+                            <th class="col fw-normal" th:text="${entry.key.value.carb} + ' węglowodany'"></th>
+                        </tr>
+                    </table>
+                </td>
             </tr>
             </thead>
             <tbody>
@@ -70,20 +84,6 @@
                 </td>
             </tr>
             </tbody>
-            <tfoot>
-            <tr>
-                <td>
-                    <table class="table-sm container">
-                        <tr class="row text-muted fw-light">
-                            <td class="col">total kcal</td>
-                            <td class="col">total białko</td>
-                            <td class="col">total tłuszcz</td>
-                            <td class="col">total węglowodany</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            </tfoot>
         </table>
     </main>
 </div>
