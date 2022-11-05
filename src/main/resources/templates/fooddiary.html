@@ -16,15 +16,13 @@
                 <td>
                     <table class="table-sm container">
                         <tr class="row">
-                            <td>
-                                <table></table>
                             <th class="col" th:text="${entry.key.key.description}"></th>
                         </tr>
                         <tr class="row text-muted small">
-                            <th class="col fw-normal" th:text="${entry.key.value.kcal} + ' kcal'"></th>
-                            <th class="col fw-normal" th:text="${entry.key.value.protein} + ' białko'"></th>
-                            <th class="col fw-normal" th:text="${entry.key.value.fat} + ' tłuszcz'"></th>
-                            <th class="col fw-normal" th:text="${entry.key.value.carb} + ' węglowodany'"></th>
+                            <th class="col" th:text="${entry.key.value.kcal} + ' kcal'"></th>
+                            <th class="col" th:text="${entry.key.value.protein}"></th>
+                            <th class="col" th:text="${entry.key.value.fat}"></th>
+                            <th class="col" th:text="${entry.key.value.carb}"></th>
                         </tr>
                     </table>
                 </td>
@@ -46,10 +44,10 @@
                                 </span>
                             </td>
                         </tr>
-                        <tr class="row text-muted fw-light small">
+                        <tr class="row text-muted small">
                             <td class="col" th:text="${meal.weight} + ' g'"></td>
                         </tr>
-                        <tr class="row text-muted fw-light small">
+                        <tr class="row text-muted small">
                             <td class="col" th:text="${meal.macro.kcal}"></td>
                             <td class="col" th:text="${meal.macro.protein}"></td>
                             <td class="col" th:text="${meal.macro.fat}"></td>
@@ -85,8 +83,49 @@
             </tr>
             </tbody>
         </table>
+
     </main>
 </div>
+
+<div class="totals-footer bg-light">
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>
+                    <table class="table-sm container">
+                        <tr class="row">
+                            <th class="col fw-normal">Kalorie</th>
+                            <th class="col fw-normal">Białko</th>
+                            <th class="col fw-normal">Tłuszcz</th>
+                            <th class="col fw-normal">Węglowodany</th>
+                        </tr>
+                        <tr class="row">
+                            <th class="col"><span th:text="${totalMacroForGivenDay.kcal}"></span>
+                                <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.kcal,1)} + ' g'"
+                                      class="small text-muted"></span>
+                            </th>
+                            <th class="col"><span th:text="${totalMacroForGivenDay.protein}"></span>
+                                <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.protein,1)} + ' g'"
+                                      class="small text-muted"></span>
+                            </th>
+                            <th class="col"><span th:text="${totalMacroForGivenDay.fat}"></span>
+                                <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.fat,1)} + ' g'"
+                                      class="small text-muted"></span>
+                            </th>
+                            <th class="col"><span th:text="${totalMacroForGivenDay.carb}"></span>
+                                <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.carb,1)} + ' g'"
+                                      class="small text-muted"></span>
+                            </th>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
 <div class="footer-fix"></div>
 <footer th:replace="fragments/footer :: footer"></footer>
 

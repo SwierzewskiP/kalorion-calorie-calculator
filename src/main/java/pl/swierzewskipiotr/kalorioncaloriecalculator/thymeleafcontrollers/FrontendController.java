@@ -22,7 +22,7 @@ import java.util.List;
 public class FrontendController {
     private final HelloService helloService;
     private final UserService userService;
-    private final MacroTotalService macroTotalService;
+    private final TotalMacroService totalMacroService;
     private final MealService mealService;
     private final ProductService productService;
 
@@ -69,8 +69,12 @@ public class FrontendController {
     public String getFoodDiary(OAuth2AuthenticationToken authentication, Model model) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
         User user = userService.getUserEntity(userId);
+        int userCalories = userService.getCalculatedCaloriesByUserId(userId);
         var allMeals = mealService.getAllMealsForGivenDay(user, LocalDate.now());
-        model.addAttribute("allMealsWithTotalMacro", macroTotalService.getTotalForEachMealTypeForGivenDay(allMeals));
+        var allMealsWithTotalMacro = totalMacroService.calculateTotalForEachMealTypeForGivenDay(allMeals);
+        model.addAttribute("allMealsWithTotalMacro", allMealsWithTotalMacro);
+        model.addAttribute("totalMacroForGivenDay", totalMacroService.calculateTotalMacroForGivenDay(allMealsWithTotalMacro));
+        model.addAttribute("macroRatio", totalMacroService.calculateMacroRatioPerUserCalories(userCalories));
 
         return "fooddiary";
     }
