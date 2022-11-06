@@ -9,7 +9,9 @@
 
 <div class="container">
     <main>
+        <div class="fooddiary-title-label text-white d-flex justify-content-center align-items-center">
         <h4>Twój dziennik posiłków</h4>
+        </div>
         <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
             <thead class="table-light">
             <tr>
@@ -20,9 +22,9 @@
                         </tr>
                         <tr class="row text-muted small">
                             <th class="col" th:text="${entry.key.value.kcal} + ' kcal'"></th>
-                            <th class="col" th:text="${entry.key.value.protein}"></th>
-                            <th class="col" th:text="${entry.key.value.fat}"></th>
-                            <th class="col" th:text="${entry.key.value.carb}"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.protein,1,1)}"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.fat,1,1)}"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.carb,1,1)}"></th>
                         </tr>
                     </table>
                 </td>
@@ -49,9 +51,9 @@
                         </tr>
                         <tr class="row text-muted small">
                             <td class="col" th:text="${meal.macro.kcal}"></td>
-                            <td class="col" th:text="${meal.macro.protein}"></td>
-                            <td class="col" th:text="${meal.macro.fat}"></td>
-                            <td class="col" th:text="${meal.macro.carb}"></td>
+                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.protein,1,1)}"></td>
+                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.fat,1,1)}"></td>
+                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.carb,1,1)}"></td>
                         </tr>
                     </table>
                     <div th:attr="id=${'deleteModal' + meal.id}" class="modal fade" id="deleteModal" tabindex="-1"
@@ -105,15 +107,18 @@
                                 <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.kcal,1)} + ' g'"
                                       class="small text-muted"></span>
                             </th>
-                            <th class="col"><span th:text="${totalMacroForGivenDay.protein}"></span>
+                            <th class="col"><span
+                                    th:text="${#numbers.formatDecimal(totalMacroForGivenDay.protein,1,1)}"></span>
                                 <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.protein,1)} + ' g'"
                                       class="small text-muted"></span>
                             </th>
-                            <th class="col"><span th:text="${totalMacroForGivenDay.fat}"></span>
+                            <th class="col"><span
+                                    th:text="${#numbers.formatDecimal(totalMacroForGivenDay.fat,1,1)}"></span>
                                 <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.fat,1)} + ' g'"
                                       class="small text-muted"></span>
                             </th>
-                            <th class="col"><span th:text="${totalMacroForGivenDay.carb}"></span>
+                            <th class="col"><span
+                                    th:text="${#numbers.formatDecimal(totalMacroForGivenDay.carb,1,1)}"></span>
                                 <span th:text="'/ ' + ${#numbers.formatInteger(macroRatio.carb,1)} + ' g'"
                                       class="small text-muted"></span>
                             </th>

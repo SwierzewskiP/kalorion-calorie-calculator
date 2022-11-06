@@ -79,6 +79,11 @@ p {
     border-bottom-width: 0;
 }
 
+.fooddiary-title-label {
+    background-color: #263d66;
+    height: 62px;
+}
+
 
 /* I override bootstrap classes below */
 
