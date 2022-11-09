@@ -40,10 +40,25 @@ public class MealService {
         return allMeals;
     }
 
+    public void updateMeal(MealDTO mealDTO) {
+        Meal meal = getMealById(mealDTO.getId());
+        meal.setWeight(mealDTO.getWeight());
+        mealRepository.save(meal);
+    }
+
     public void deleteMeal(Long id) {
-        Meal meal = mealRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Brak posiłku o takim ID:" + id));
+        Meal meal = getMealById(id);
         mealRepository.delete(meal);
         log.info("Usunięto posiłek o ID: " + id);
+    }
+
+    public MealDTO getMealDTObyId(Long id) {
+        Meal meal = getMealById(id);
+        return mealMapper.toDTO(meal);
+    }
+
+    private Meal getMealById(Long id) {
+        return mealRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Brak posiłku o takim ID:" + id));
     }
 }

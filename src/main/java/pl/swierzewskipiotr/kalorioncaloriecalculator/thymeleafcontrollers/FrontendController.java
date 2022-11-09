@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.MealDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.ProductDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.User;
@@ -77,6 +78,25 @@ public class FrontendController {
         model.addAttribute("macroRatio", totalMacroService.calculateMacroRatioPerUserCalories(userCalories));
 
         return "fooddiary";
+    }
+
+    @GetMapping("/fooddiary/edit/{id}")
+    public String getMealToEdit(@PathVariable Long id, Model model) {
+        MealDTO mealDTO = mealService.getMealDTObyId(id);
+        model.addAttribute("mealDTO", mealDTO);
+
+        return "editmeal";
+    }
+
+    @PostMapping("/fooddiary/update/{id}")
+    public String postMealToUpdate(@PathVariable("id") Long id, @Valid MealDTO mealDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            mealDTO.setId(id);
+            return "editmeal";
+
+        }
+        mealService.updateMeal(mealDTO);
+        return "redirect:/fooddiary";
     }
 
     @GetMapping("/fooddiary/delete/{id}")

@@ -18,13 +18,29 @@ public class Meal {
     private Long id;
     @ManyToOne
     private Product product;
-    @Embedded
+    @Transient
     private Macro macro;
     private int weight;
     @ManyToOne
     private User user;
     private MealType mealType;
     private LocalDate date;
+
+    public Macro getMacro() {
+        this.macro = calculateMacroPerGivenWeight();
+
+        return macro;
+    }
+
+    private Macro calculateMacroPerGivenWeight() {
+        int kcal = Math.round(this.product.macroPer100g.getKcal() * this.weight / 100);
+        double protein = this.product.macroPer100g.getProtein() * this.weight / 100;
+        double fat = this.product.macroPer100g.getFat() * this.weight / 100;
+        double carb = this.product.macroPer100g.getCarb() * this.weight / 100;
+        Macro macro = new Macro(kcal, protein, fat, carb);
+
+        return macro;
+    }
 
     public Meal setId(Long id) {
         this.id = id;

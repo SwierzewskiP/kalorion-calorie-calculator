@@ -10,7 +10,7 @@
 <div class="container">
     <main>
         <div class="fooddiary-title-label text-white d-flex justify-content-center align-items-center">
-        <h4>Twój dziennik posiłków</h4>
+            <h4>Twój dziennik posiłków</h4>
         </div>
         <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
             <thead class="table-light">
@@ -18,13 +18,15 @@
                 <td>
                     <table class="table-sm container">
                         <tr class="row">
-                            <th class="col" th:text="${entry.key.key.description}"></th>
+                            <th class="col position-relative">
+                                <span th:text="${entry.key.key.description}"></span>
+                            </th>
                         </tr>
                         <tr class="row text-muted small">
                             <th class="col" th:text="${entry.key.value.kcal} + ' kcal'"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.protein,1,1)}"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.fat,1,1)}"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.carb,1,1)}"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.protein,1,1)} + ' g'"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.fat,1,1)} + ' g'"></th>
+                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.carb,1,1)} + ' g'"></th>
                         </tr>
                     </table>
                 </td>
@@ -38,11 +40,14 @@
                             <td class="col position-relative">
                                 <span th:text="${meal.product.name}"></span>
                                 <span class="position-absolute top-1 end-0">
-                                <input type="image" id="edit-icon" src="/img/pencil-square.svg" alt="Edit"/>
+                                    <a th:href="@{/fooddiary/edit/{id}(id=${meal.id})}">
+                                        <input type="image" id="edit-icon" src="/img/pencil-square.svg"
+                                               alt="Edytuj"/>
+                                    </a>
                                     <!-- Button trigger modal -->
-                                <input type="image" id="delete-icon" data-bs-toggle="modal"
-                                       th:attr="data-bs-target=${'#deleteModal' + meal.id}" data-row="${meal}"
-                                       src="/img/x-square.svg" alt="Delete"/>
+                                    <input type="image" id="delete-icon" data-bs-toggle="modal"
+                                           th:attr="data-bs-target=${'#deleteModal' + meal.id}" data-row="${meal}"
+                                           src="/img/x-square.svg" alt="Usuń"/>
                                 </span>
                             </td>
                         </tr>
@@ -50,7 +55,7 @@
                             <td class="col" th:text="${meal.weight} + ' g'"></td>
                         </tr>
                         <tr class="row text-muted small">
-                            <td class="col" th:text="${meal.macro.kcal}"></td>
+                            <td class="col" th:text="${meal.macro.kcal} + ' kcal'"></td>
                             <td class="col" th:text="${#numbers.formatDecimal(meal.macro.protein,1,1)}"></td>
                             <td class="col" th:text="${#numbers.formatDecimal(meal.macro.fat,1,1)}"></td>
                             <td class="col" th:text="${#numbers.formatDecimal(meal.macro.carb,1,1)}"></td>
