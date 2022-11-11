@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/head :: head"></head>
 
@@ -9,7 +9,7 @@
 
 <div class="container">
     <main>
-        <h4>Podaj swoje dane:</h4>
+        <h4>Edytuj wagę:</h4>
         <form class="form needs-validation" method="post" th:action="@{/fooddiary/update/{id}(id=${mealDTO.id})}"
               th:object="${mealDTO}"
               enctype="multipart/form-data">
@@ -26,10 +26,48 @@
             <div class="row mb-4">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
-                    <button type="submit" class="btn btn-primary">Wylicz</button>
+                    <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </div>
         </form>
+
+        <div class="product-info-table-wrapper">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="2" th:text="${mealDTO.product.name}">
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="text-muted small">
+                <tr class>
+                    <th>Wartość energetyczna</th>
+                    <td th:text="${mealDTO.product.macroPer100g.kcal} + ' kcal'"></td>
+                </tr>
+                <tr>
+                    <th>Białko</th>
+                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.protein,1,1)} + ' g'"></td>
+                </tr>
+                <tr>
+                    <th>Tłuszcz</th>
+                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.fat,1,1)} + ' g'">
+                    </th>
+                </tr>
+                <tr>
+                    <th>Węglowodany</th>
+                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.carb,1,1)} + ' g'"></td>
+                </tr>
+                </tbody>
+                <tfoot class="text-muted small">
+                <tr>
+                    <th>
+                    </th>
+                    <th>/ 100 g produktu
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </main>
 </div>
 
