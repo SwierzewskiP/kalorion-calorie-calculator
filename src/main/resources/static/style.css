@@ -84,6 +84,12 @@ p {
     height: 62px;
 }
 
+.product-info-table-wrapper {
+    position: absolute;
+    width: 676px;
+    top: 18rem;
+}
+
 
 /* I override bootstrap classes below */
 

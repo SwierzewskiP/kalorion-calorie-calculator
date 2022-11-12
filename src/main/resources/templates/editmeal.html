@@ -16,16 +16,12 @@
 
             <div class="row mb-4">
                 <label for="weight" class="col-sm-3 col-form-label">Waga (g)</label>
-                <div class="col-sm-9">
+                <div class="col-sm-5">
                     <input id="weight" class="form-control" type="number" th:field="*{weight}">
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('weight')}"
                            th:errorclass="error" th:errors="*{weight}"></small>
                 </div>
-            </div>
-
-            <div class="row mb-4">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-9">
+                <div class="col-sm-4">
                     <button type="submit" class="btn btn-primary">Zapisz</button>
                 </div>
             </div>
@@ -50,8 +46,7 @@
                 </tr>
                 <tr>
                     <th>Tłuszcz</th>
-                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.fat,1,1)} + ' g'">
-                    </th>
+                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.fat,1,1)} + ' g'"></td>
                 </tr>
                 <tr>
                     <th>Węglowodany</th>

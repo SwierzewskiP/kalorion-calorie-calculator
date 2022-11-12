@@ -81,7 +81,7 @@ public class FrontendController {
     }
 
     @GetMapping("/fooddiary/edit/{id}")
-    public String getMealToEdit(@PathVariable Long id, Model model) {
+    public String getMealToEdit(@PathVariable("id") Long id, Model model) {
         MealDTO mealDTO = mealService.getMealDTObyId(id);
         model.addAttribute("mealDTO", mealDTO);
 
@@ -90,10 +90,10 @@ public class FrontendController {
 
     @PostMapping("/fooddiary/update/{id}")
     public String postMealToUpdate(@PathVariable("id") Long id, @Valid MealDTO mealDTO, BindingResult result) {
+        MealDTO mealTemp = mealService.getMealDTObyId(id);
         if (result.hasErrors()) {
-            mealDTO.setId(id);
+            mealDTO.setProduct(mealTemp.getProduct());
             return "editmeal";
-
         }
         mealService.updateMeal(mealDTO);
         return "redirect:/fooddiary";
