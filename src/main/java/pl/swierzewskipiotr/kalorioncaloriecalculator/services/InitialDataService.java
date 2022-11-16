@@ -69,7 +69,9 @@ public class InitialDataService implements CommandLineRunner {
         productRepository.save(tomato);
         final Meal tomatoAsMeal = new Meal(null, tomato, macroOfTomatoPer100g, 100, user1, MealType.DINNER, LocalDate.now());
 
-        user1.getMeals().addAll(List.of(breadAsMeal, yogurtAsMeal, eggAsMeal, brieAsMeal, tomatoAsMeal));
+        final Meal breadAsMeal2 = new Meal(null, bread, macroOfBreadPer100g, 100, user1, MealType.SUPPER, LocalDate.now());
+
+        user1.getMeals().addAll(List.of(breadAsMeal, yogurtAsMeal, eggAsMeal, brieAsMeal, tomatoAsMeal, breadAsMeal2));
         userRepository.save(user1);
 
         log.info("Dodano przykładowego użytkownika " + user1.getName() + " wraz z posiłkami na dziś: " + user1.getMeals());

@@ -61,6 +61,7 @@
                             <td class="col" th:text="${#numbers.formatDecimal(meal.macro.carb,1,1)}"></td>
                         </tr>
                     </table>
+                    <!-- Modal to delete meal -->
                     <div th:attr="id=${'deleteModal' + meal.id}" class="modal fade" id="deleteModal" tabindex="-1"
                          aria-labelledby="modalLabel"
                          aria-hidden="true">
@@ -102,7 +103,7 @@
                 <td>
                     <table class="table-sm container">
                         <tr class="row">
-                            <th class="col fw-normal">Kalorie</th>
+                            <th class="col fw-normal">Energia</th>
                             <th class="col fw-normal">Białko</th>
                             <th class="col fw-normal">Tłuszcz</th>
                             <th class="col fw-normal">Węglowodany</th>

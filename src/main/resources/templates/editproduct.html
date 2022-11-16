@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+<nav th:replace="fragments/navigation :: nav"></nav>
+
+<div class="container">
+    <main>
+        <h4>Wprowadź poprawne dane z etykiety produktu</h4>
+        <span class="h4" th:text="${productDTO.name} + ':'"></span>
+        <form class="form needs-validation" novalidate method="post"
+              th:action="@{/product/update/{id}(id=${productDTO.id})}" th:object="${productDTO}"
+              enctype="multipart/form-data">
+
+            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
+                <label for="kcalInput" class="col-sm-3 col-form-label">Wartość energetyczna (kcal)</label>
+                <div class="col-sm-9">
+                    <input id="kcalInput" class="form-control" type="number" th:field="*{kcal}">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('kcal')}"
+                           th:errorclass="error" th:errors="*{kcal}"></small>
+                </div>
+            </div>
+
+            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
+                <label for="proteinInput" class="col-sm-3 col-form-label">Białko (g)</label>
+                <div class="col-sm-9">
+                    <input id="proteinInput" class="form-control" type="number" th:field="*{protein}">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('protein')}"
+                           th:errorclass="error" th:errors="*{protein}"></small>
+                </div>
+            </div>
+
+            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
+                <label for="fatInput" class="col-sm-3 col-form-label">Tłuszcz (g)</label>
+                <div class="col-sm-9">
+                    <input id="fatInput" class="form-control" type="number" th:field="*{fat}">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('fat')}"
+                           th:errorclass="error" th:errors="*{fat}"></small>
+                </div>
+            </div>
+
+            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
+                <label for="carbInput" class="col-sm-3 col-form-label">Węglowodany (g)</label>
+                <div class="col-sm-9">
+                    <input id="carbInput" class="form-control" type="number" th:field="*{carb}">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('carb')}"
+                           th:errorclass="error" th:errors="*{carb}"></small>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary">Zapisz</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</div>
+<div class="footer-fix"></div>
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>

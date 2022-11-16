@@ -28,4 +28,19 @@ public class ProductService {
         return dtosList;
     }
 
+    public void updateProduct(ProductDTO productDTO) {
+        Product product = getProductById(productDTO.getId());
+        product.setMacroPer100g(productDTO.getMacroPer100g());
+        productRepository.save(product);
+    }
+
+    public ProductDTO getProductDTObyId(Long id) {
+        Product product = getProductById(id);
+        return productMapper.toDTO(product);
+    }
+
+    private Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Brak produktu o takim ID:" + id));
+    }
 }

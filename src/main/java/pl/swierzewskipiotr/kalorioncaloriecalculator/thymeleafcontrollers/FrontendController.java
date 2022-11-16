@@ -112,4 +112,25 @@ public class FrontendController {
 
         return "products";
     }
+
+    @GetMapping("/product/edit/{id}")
+    public String getProductToEdit(@PathVariable("id") Long id, Model model) {
+        ProductDTO productDTO = productService.getProductDTObyId(id);
+        model.addAttribute("productDTO", productDTO);
+
+        return "editproduct";
+    }
+
+    @PostMapping("/product/update/{id}")
+    public String postProductToUpdate(@PathVariable("id") Long id, @Valid ProductDTO productDTO, BindingResult result) {
+        ProductDTO productTemp = productService.getProductDTObyId(id);
+        if (result.hasErrors()) {
+            productDTO.setName(productTemp.getName());
+
+            return "editproduct";
+        }
+        productService.updateProduct(productDTO);
+
+        return "redirect:/fooddiary";
+    }
 }

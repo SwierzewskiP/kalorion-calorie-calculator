@@ -11,6 +11,7 @@ public class ProductMapper {
 
     public ProductDTO toDTO(Product entity) {
         final ProductDTO dto = new ProductDTO();
+        dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setMacroPer100g(entity.getMacroPer100g());
 
@@ -19,6 +20,7 @@ public class ProductMapper {
 
     public Product toEntity(ProductDTO dto) {
         final Product entity = new Product();
+        entity.setId(entity.getId());
         entity.setName(dto.getName());
         entity.setMacroPer100g(dto.getMacroPer100g());
 
