@@ -15,11 +15,14 @@
         <p>Twój PPM* wynosi:</p>
         <h3 th:text="${calculatedBMR}"></h3>
 
-        <p>*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
-            zapewnić prawidłowe funkcjonowanie organizmu. Nie zaleca się jeść mniej kalorii niż ta wartość (dieta
-            głodówkowa).</p>
         <p>Jesteś już gotów na główny cel naszej podróży - dodawanie i podliczanie posiłków!<br> Kliknij <a
-                th:href="@{/fooddiary}">tutaj</a>, by przejść do dziennika posiłków :)</p>
+                th:href="@{/fooddiary/{date}(date=${today})}">tutaj</a>, by przejść do dziennika posiłków :)</p>
+        <p class="small">
+            <span class="text-info">*Podstawowa Przemiana Materii - ilość energii, którą trzeba dostarczyć organizmowi, aby
+            zapewnić prawidłowe funkcjonowanie organizmu. </span><br>
+            <span class="text-danger">Nie zaleca się jeść mniej kalorii niż ta wartość (dieta
+                głodówkowa).</span>
+        </p>
     </main>
 </div>
 

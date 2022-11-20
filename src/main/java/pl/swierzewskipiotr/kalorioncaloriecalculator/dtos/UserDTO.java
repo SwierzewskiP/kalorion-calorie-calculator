@@ -1,7 +1,6 @@
 package pl.swierzewskipiotr.kalorioncaloriecalculator.dtos;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.DietGoal;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.PhysicalActivityLevel;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.Sex;
@@ -19,7 +18,6 @@ public class UserDTO {
     private Sex sex;
     @NotNull(message = "Wybierz lub wpisz poprawną datę urodzenia. Wskazane minimum 18 lat.")
     @Past(message = "Wybierz datę z przeszłości.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
     @NotNull(message = "Wzrost musi mieć od 90 do 255 cm.")
     @Min(value = 90, message = "Minimalny wzrost to 90 cm.")

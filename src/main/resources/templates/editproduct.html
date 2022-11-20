@@ -12,7 +12,7 @@
         <h4>Wprowadź poprawne dane z etykiety produktu</h4>
         <span class="h4" th:text="${productDTO.name} + ':'"></span>
         <form class="form needs-validation" novalidate method="post"
-              th:action="@{/product/update/{id}(id=${productDTO.id})}" th:object="${productDTO}"
+              th:action="@{/fooddiary/{date}/product/update/{id}(date=${date}, id=${productDTO.id})}" th:object="${productDTO}"
               enctype="multipart/form-data">
 
             <div th:object="${productDTO.macroPer100g}" class="row mb-4">

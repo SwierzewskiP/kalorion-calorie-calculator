@@ -16,6 +16,7 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,14 +26,28 @@ public class FoodDiaryController {
     private final MealService mealService;
     private final TotalMacroService totalMacroService;
 
-    @GetMapping("/fooddiary")
-    public String getFoodDiary(OAuth2AuthenticationToken authentication, Model model) {
+    @GetMapping("/fooddiary/{date}")
+    public String getFoodDiary(@PathVariable LocalDate date, OAuth2AuthenticationToken authentication, Model model) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
         User user = userService.getUserEntity(userId);
         int userCalories = userService.getCalculatedCaloriesByUserId(userId);
-        var allMeals = mealService.getAllMealsForGivenDay(user, LocalDate.now());
 
+        var allMeals = mealService.getAllMealsForGivenDay(user, date);
         var allMealsWithTotalMacro = totalMacroService.calculateTotalForEachMealTypeForGivenDay(allMeals);
+
+        LocalDate oneDayBack = date.minusDays(1);
+        LocalDate oneDayForth = date.plusDays(1);
+
+        model.addAttribute("yesterday", LocalDate.now().minusDays(1));
+        model.addAttribute("tomorrow", LocalDate.now().plusDays(1));
+        model.addAttribute("oneDayBack", oneDayBack);
+        model.addAttribute("oneDayBackLabel", oneDayBack
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        model.addAttribute("oneDayForth", oneDayForth);
+        model.addAttribute("oneDayForthLabel", oneDayForth
+                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        model.addAttribute("givenDay", date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+
         model.addAttribute("allMealsWithTotalMacro", allMealsWithTotalMacro);
         model.addAttribute("totalMacroForGivenDay", totalMacroService.calculateTotalMacroForGivenDay(allMealsWithTotalMacro));
         model.addAttribute("macroRatio", totalMacroService.calculateMacroRatioPerUserCalories(userCalories));
@@ -40,8 +55,8 @@ public class FoodDiaryController {
         return "fooddiary";
     }
 
-    @GetMapping("/fooddiary/edit/{id}")
-    public String getMealToEdit(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/fooddiary/{date}/edit/{id}")
+    public String getMealToEdit(@PathVariable LocalDate date, @PathVariable("id") Long id, Model model) {
         MealDTO mealDTO = mealService.getMealDTObyId(id);
 
         model.addAttribute("mealDTO", mealDTO);
@@ -49,20 +64,21 @@ public class FoodDiaryController {
         return "editmeal";
     }
 
-    @PostMapping("/fooddiary/update/{id}")
-    public String postMealToUpdate(@PathVariable("id") Long id, @Valid MealDTO mealDTO, BindingResult result) {
+    @PostMapping("/fooddiary/{date}/update/{id}")
+    public String postMealToUpdate(@PathVariable LocalDate date, @PathVariable("id") Long id,
+                                   @Valid MealDTO mealDTO, BindingResult result) {
         MealDTO mealTemp = mealService.getMealDTObyId(id);
         if (result.hasErrors()) {
             mealDTO.setProduct(mealTemp.getProduct());
             return "editmeal";
         }
         mealService.updateMeal(mealDTO);
-        return "redirect:/fooddiary";
+        return "redirect:/fooddiary/" + date;
     }
 
-    @GetMapping("/fooddiary/delete/{id}")
-    public String getMealToDelete(@PathVariable Long id) {
+    @GetMapping("/fooddiary/{date}/delete/{id}")
+    public String getMealToDelete(@PathVariable LocalDate date, @PathVariable Long id) {
         mealService.deleteMeal(id);
-        return "redirect:/fooddiary";
+        return "redirect:/fooddiary/" + date;
     }
 }

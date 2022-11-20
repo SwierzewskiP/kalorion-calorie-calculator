@@ -10,7 +10,8 @@
 <div class="container">
     <main>
         <h4>Edytuj wagę:</h4>
-        <form class="form needs-validation" novalidate method="post" th:action="@{/fooddiary/update/{id}(id=${mealDTO.id})}"
+        <form class="form needs-validation" novalidate method="post"
+              th:action="@{/fooddiary/{date}/update/{id}(date=${date}, id=${mealDTO.id})}"
               th:object="${mealDTO}"
               enctype="multipart/form-data">
 
@@ -63,7 +64,7 @@
                 </tfoot>
             </table>
             <p class="text-info text-center">Błędne dane? <a
-                    th:href="@{/product/edit/{id}(id=${mealDTO.product.id})}">Popraw!</a> Wszyscy użytkownicy będą wdzięczni :)
+                    th:href="@{/fooddiary/{date}/product/edit/{id}(date=${date}, id=${mealDTO.product.id})}">Popraw!</a> Wszyscy użytkownicy będą wdzięczni :)
             </p>
         </div>
     </main>

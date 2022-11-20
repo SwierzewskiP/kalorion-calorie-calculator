@@ -11,6 +11,7 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.UserDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.services.UserService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,8 +22,9 @@ public class UserFormController {
     @GetMapping("/userform")
     public String getUserForm(Model model, OAuth2AuthenticationToken authentication) {
         Integer userId = authentication.getPrincipal().getAttribute("id");
+        LocalDate today = LocalDate.now();
         if (userService.existsById(userId)) {
-            return "redirect:/fooddiary";
+            return "redirect:/fooddiary/" + today;
         }
         final UserDTO userDTO = new UserDTO();
 

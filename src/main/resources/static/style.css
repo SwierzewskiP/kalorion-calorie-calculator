@@ -81,13 +81,27 @@ p {
 
 .fooddiary-title-label {
     background-color: #263d66;
-    height: 62px;
+    height: 61px;
 }
 
 .product-info-table-wrapper {
     position: absolute;
     width: 676px;
     top: 18rem;
+}
+
+.fooddiary-content-wrapper {
+    margin-top: 3rem;
+}
+
+.fooddiary-main {
+    margin-bottom: 1rem;
+    max-width: 700px;
+}
+
+.fooddiary-date-button {
+    background-color: #263d66;
+    margin-top: 11px;
 }
 
 

@@ -7,92 +7,107 @@
 
 <nav th:replace="fragments/navigation :: nav"></nav>
 
-<div class="container">
-    <main>
-        <div class="fooddiary-title-label text-white d-flex justify-content-center align-items-center">
-            <h4>Twój dziennik posiłków</h4>
+<div class="container-fluid">
+    <div class="row justify-content-center fooddiary-content-wrapper">
+        <div class="col-2 d-flex align-items-start justify-content-end">
+            <a th:href="@{/fooddiary/{date}(date=${oneDayBack})}" class="btn btn-dark fooddiary-date-button"
+               th:unless="${oneDayBack.equals(yesterday)}" th:text="'&#10094; ' + ${oneDayBackLabel}"></a>
+            <a th:href="@{/fooddiary/{date}(date=${oneDayBack})}" class="btn btn-dark fooddiary-date-button"
+               th:if="${oneDayBack.equals(yesterday)}">&#10094; Wczoraj</a>
         </div>
-        <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
-            <thead class="table-light">
-            <tr>
-                <td>
-                    <table class="table-sm container">
-                        <tr class="row">
-                            <th class="col position-relative">
-                                <span th:text="${entry.key.key.description}"></span>
-                            </th>
-                        </tr>
-                        <tr class="row text-muted small">
-                            <th class="col" th:text="${entry.key.value.kcal} + ' kcal'"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.protein,1,1)} + ' g'"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.fat,1,1)} + ' g'"></th>
-                            <th class="col" th:text="${#numbers.formatDecimal(entry.key.value.carb,1,1)} + ' g'"></th>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="meal : ${entry.value}">
-                <td>
-                    <table class="table-sm container">
-                        <tr class="row">
-                            <td class="col position-relative">
-                                <span th:text="${meal.product.name}"></span>
-                                <span class="position-absolute top-1 end-0">
-                                    <a th:href="@{/fooddiary/edit/{id}(id=${meal.id})}">
+        <main class="col fooddiary-main">
+            <div class="fooddiary-title-label text-white d-flex justify-content-center align-items-center">
+                <h4 th:unless="${oneDayBack.equals(yesterday)}" th:text="'Twój dziennik posiłków na ' + ${givenDay}"></h4>
+                <h4 th:if="${oneDayBack.equals(yesterday)}" th:text="'Twój dziennik posiłków na dziś'"></h4>
+            </div>
+            <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <td>
+                        <table class="table-sm container">
+                            <tr class="row">
+                                <th class="col position-relative">
+                                    <span th:text="${entry.key.key.description}"></span>
+                                </th>
+                            </tr>
+                            <tr class="row text-muted small">
+                                <th class="col" th:text="${entry.key.value.kcal} + ' kcal'"></th>
+                                <th class="col"
+                                    th:text="${#numbers.formatDecimal(entry.key.value.protein,1,1)} + ' g'"></th>
+                                <th class="col"
+                                    th:text="${#numbers.formatDecimal(entry.key.value.fat,1,1)} + ' g'"></th>
+                                <th class="col"
+                                    th:text="${#numbers.formatDecimal(entry.key.value.carb,1,1)} + ' g'"></th>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="meal : ${entry.value}">
+                    <td>
+                        <table class="table-sm container">
+                            <tr class="row">
+                                <td class="col position-relative">
+                                    <span th:text="${meal.product.name}"></span>
+                                    <span class="position-absolute top-1 end-0">
+                                    <a th:href="@{/fooddiary/{date}/edit/{id}(date=${date}, id=${meal.id})}">
                                         <input type="image" id="edit-icon" src="/img/pencil-square.svg"
                                                alt="Edytuj"/>
                                     </a>
-                                    <!-- Button trigger modal -->
+                                        <!-- Button trigger modal -->
                                     <input type="image" id="delete-icon" data-bs-toggle="modal"
                                            th:attr="data-bs-target=${'#deleteModal' + meal.id}" data-row="${meal}"
                                            src="/img/x-square.svg" alt="Usuń"/>
                                 </span>
-                            </td>
-                        </tr>
-                        <tr class="row text-muted small">
-                            <td class="col" th:text="${meal.weight} + ' g'"></td>
-                        </tr>
-                        <tr class="row text-muted small">
-                            <td class="col" th:text="${meal.macro.kcal} + ' kcal'"></td>
-                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.protein,1,1)}"></td>
-                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.fat,1,1)}"></td>
-                            <td class="col" th:text="${#numbers.formatDecimal(meal.macro.carb,1,1)}"></td>
-                        </tr>
-                    </table>
-                    <!-- Modal to delete meal -->
-                    <div th:attr="id=${'deleteModal' + meal.id}" class="modal fade" id="deleteModal" tabindex="-1"
-                         aria-labelledby="modalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 id="modalLabel">Usuń</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <span th:text="'Czy na pewno chcesz usunąć ' + ${meal.product.name} + '?'"></span>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Anuluj
-                                    </button>
-                                    <form action="#" th:action="@{/fooddiary/delete/{id}(id=${meal.id})}"
-                                          th:method="get">
-                                        <button type="submit" class="btn btn-primary">Usuń</button>
-                                    </form>
+                                </td>
+                            </tr>
+                            <tr class="row text-muted small">
+                                <td class="col" th:text="${meal.weight} + ' g'"></td>
+                            </tr>
+                            <tr class="row text-muted small">
+                                <td class="col" th:text="${meal.macro.kcal} + ' kcal'"></td>
+                                <td class="col" th:text="${#numbers.formatDecimal(meal.macro.protein,1,1)}"></td>
+                                <td class="col" th:text="${#numbers.formatDecimal(meal.macro.fat,1,1)}"></td>
+                                <td class="col" th:text="${#numbers.formatDecimal(meal.macro.carb,1,1)}"></td>
+                            </tr>
+                        </table>
+                        <!-- Modal to delete meal -->
+                        <div th:attr="id=${'deleteModal' + meal.id}" class="modal fade" id="deleteModal" tabindex="-1"
+                             aria-labelledby="modalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 id="modalLabel">Usuń</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span th:text="'Czy na pewno chcesz usunąć ' + ${meal.product.name} + '?'"></span>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Anuluj
+                                        </button>
+                                        <form action="#" th:action="@{/fooddiary/{date}/delete/{id}(date=${date}, id=${meal.id})}"
+                                              th:method="get">
+                                            <button type="submit" class="btn btn-primary">Usuń</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-    </main>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+        <div class="col-2">
+            <a th:href="@{/fooddiary/{date}(date=${oneDayForth})}" class="btn btn-dark fooddiary-date-button"
+               th:unless="${oneDayForth.equals(tomorrow)}" th:text="${oneDayForthLabel} + ' &#10095;'"></a>
+        </div>
+    </div>
 </div>
 
 <div class="totals-footer bg-light">
