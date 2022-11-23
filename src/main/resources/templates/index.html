@@ -9,20 +9,31 @@
 
 <div class="container">
     <main>
-        <h4 th:text="${greeting}"></h4>
-        <p>Kliknij <a th:href="@{/userform}">tutaj</a>, by zacząć działać!</p>
+        <div class="row d-flex justify-content-center">
+            <h4 th:text="${greeting}"></h4>
+            <div class="col-4 mt-5 pt-4 pb-4 bg-light d-flex justify-content-center">
+                <div>
+                    <h6>Zaloguj za pomocą:</h6>
+                    <a th:href="@{/oauth2/authorization/github}" class="btn btn-dark ms-2" type="submit"><img
+                            src="/img/github_white.png" alt="GitHub" id="github-icon"/>
+                        <span class="ms-2">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-        <figure class="text-end homepage-quote">
-            <blockquote class="blockquote">
-                <p>Gdybym dostawał centa za każdą rozmowę z ludźmi, którzy chcieli zrzucić wagę, ale nie mieli ochoty
-                    liczyć kalorii... sami wiecie, co by było. To równie sensowne co chcieć przejechać samochodem na
-                    drugi koniec stanu bez spoglądania na poziom paliwa w baku. Czy się uda? Może tak, ale będzie to
-                    trudniejsze i bardziej stresujące niż powinno.</p>
-            </blockquote>
-            <figcaption class="blockquote-footer">
-                Michael Matthews <cite title="Source Title">BIGGER LEANER STRONGER</cite>
-            </figcaption>
-        </figure>
+            <figure class="text-end homepage-quote">
+                <blockquote class="blockquote">
+                    <p>Gdybym dostawał centa za każdą rozmowę z ludźmi, którzy chcieli zrzucić wagę, ale nie mieli
+                        ochoty
+                        liczyć kalorii... sami wiecie, co by było. To równie sensowne co chcieć przejechać samochodem na
+                        drugi koniec stanu bez spoglądania na poziom paliwa w baku. Czy się uda? Może tak, ale będzie to
+                        trudniejsze i bardziej stresujące niż powinno.</p>
+                </blockquote>
+                <figcaption class="blockquote-footer">
+                    Michael Matthews <cite title="Source Title">BIGGER LEANER STRONGER</cite>
+                </figcaption>
+            </figure>
     </main>
 </div>
 

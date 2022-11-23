@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <nav th:fragment="nav" class="navbar navbar-expand-lg sticky-top navbar-light">
     <div class="container-fluid">
+        <div class="d-flex align-items-center">
         <a href="/" class="navbar-brand">
-            <img src="/img/calories-calculator_64.png" alt="" width="64" height="64"
+            <img src="/img/calories-calculator_64.png" alt="kalOrion logo" width="64" height="64"
                  class="d-inline-block align-text-top logo">
             kalOrion</a>
         <span class="navbar-text">
       Licz kalorie i zrób formę na lata - nie na lato!
         </span>
-        <form th:action="@{/logout}" method="post">
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
             <button class="btn logout-button btn-outline-dark" type="submit">Wyloguj</button>
         </form>
     </div>

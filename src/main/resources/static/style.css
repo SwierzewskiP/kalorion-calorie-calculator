@@ -40,7 +40,9 @@ footer {
 }
 
 .homepage-quote {
-    padding-top: 8rem;
+    position: absolute;
+    margin-top: 1.5rem;
+    width: 676px;
 }
 
 .logo {
@@ -49,6 +51,11 @@ footer {
 
 .logout-button {
     margin-right: 1rem;
+}
+
+#github-icon {
+    width: 32px;
+    height: 32px;
 }
 
 p {
@@ -123,6 +130,10 @@ p {
 .navbar-brand {
     font-size: 3.2rem;
     font-weight: 600;
+}
+
+.navbar-text {
+    margin-left: 1.5rem;
 }
 
 tr .row {
