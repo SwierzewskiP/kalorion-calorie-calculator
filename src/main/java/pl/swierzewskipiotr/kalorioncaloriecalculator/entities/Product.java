@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Getter
 @AllArgsConstructor
@@ -14,7 +18,12 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 2, max = 100, message
+            = "Nazwa musi się składać z minimum 2, a maksimum 100 znaków.")
+    @NotBlank(message = "Podaj oficjalną nazwę produktu - będzie ona obowiązywać dla wszystkich użytkowników i nie można jej później zmienić.")
     private String name;
+    @Valid
+    @NotNull(message = "Podaj wartość z tabeli produktu.")
     @AttributeOverrides({
             @AttributeOverride(name = "kcal", column = @Column(name = "kcal_per_100g")),
             @AttributeOverride(name = "protein", column = @Column(name = "protein_per_100g")),

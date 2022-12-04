@@ -2,6 +2,7 @@ package pl.swierzewskipiotr.kalorioncaloriecalculator.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.dtos.MealDTO;
 import pl.swierzewskipiotr.kalorioncaloriecalculator.entities.Meal;
@@ -23,6 +24,21 @@ public class MealService {
 
     private final MealRepository mealRepository;
     private final MealMapper mealMapper;
+    private final UserService userService;
+
+    public void addMealWithNewProduct(MealDTO mealDTO, OAuth2AuthenticationToken authentication, LocalDate date, MealType mealType) {
+        User user = userService.getUserEntity(authentication.getPrincipal().getAttribute("id"));
+        mealDTO.setUser(user);
+        mealDTO.setMealType(mealType);
+        mealDTO.setDate(date);
+        Meal meal = mealMapper.toEntity(mealDTO);
+        String mealName = mealDTO.getProduct().getName();
+
+        mealRepository.save(meal);
+        log.info("Dodano nowy produkt do bazy: " + mealName + ".");
+        log.info("Dodano nowy posiłek: " + mealName + " do: " + mealType.getDescription() + " " + date + ".");
+    }
+
     public List<MealDTO> getAllMealsByUserAndDateAndMealType(User user, LocalDate date, MealType type) {
         final List<Meal> allEntities = mealRepository.findMealEntitiesByUserAndDateAndMealType(user, date, type);
 

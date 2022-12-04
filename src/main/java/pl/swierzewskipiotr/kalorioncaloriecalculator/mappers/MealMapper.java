@@ -15,6 +15,9 @@ public class MealMapper {
         dto.setProduct(entity.getProduct());
         dto.setMacro(entity.getMacro());
         dto.setWeight(entity.getWeight());
+        dto.setUser(entity.getUser());
+        dto.setMealType(entity.getMealType());
+        dto.setDate(entity.getDate());
 
         return dto;
     }
@@ -25,6 +28,9 @@ public class MealMapper {
         entity.setProduct(dto.getProduct());
         entity.setMacro(dto.getMacro());
         entity.setWeight(dto.getWeight());
+        entity.setUser(dto.getUser());
+        entity.setMealType(dto.getMealType());
+        entity.setDate(dto.getDate());
 
         return entity;
     }

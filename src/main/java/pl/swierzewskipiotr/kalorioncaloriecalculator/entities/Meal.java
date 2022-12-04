@@ -16,7 +16,7 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Product product;
     @Transient
     private Macro macro;

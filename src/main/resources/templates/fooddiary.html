@@ -17,7 +17,8 @@
         </div>
         <main class="col fooddiary-main">
             <div class="fooddiary-title-label text-white d-flex justify-content-center align-items-center">
-                <h4 th:unless="${oneDayBack.equals(yesterday)}" th:text="'Twój dziennik posiłków na ' + ${givenDay}"></h4>
+                <h4 th:unless="${oneDayBack.equals(yesterday)}"
+                    th:text="'Twój dziennik posiłków na ' + ${givenDay}"></h4>
                 <h4 th:if="${oneDayBack.equals(yesterday)}" th:text="'Twój dziennik posiłków na dziś'"></h4>
             </div>
             <table th:each="entry : ${allMealsWithTotalMacro}" class="table table-hover table-bordered">
@@ -28,6 +29,12 @@
                             <tr class="row">
                                 <th class="col position-relative">
                                     <span th:text="${entry.key.key.description}"></span>
+                                    <span class="position-absolute top-0 end-0">
+                                    <a class="align-top" th:href="@{/fooddiary/{date}/{mealType}/add(date=${date}, mealType=${entry.key.key})}">
+                                        <input id="add-icon" type="image" src="/img/plus-square.svg"
+                                               alt="Dodaj nowy"/>
+                                    </a>
+                                    </span>
                                 </th>
                             </tr>
                             <tr class="row text-muted small">
@@ -50,7 +57,7 @@
                             <tr class="row">
                                 <td class="col position-relative">
                                     <span th:text="${meal.product.name}"></span>
-                                    <span class="position-absolute top-1 end-0">
+                                    <span class="position-absolute top-0 end-0">
                                     <a th:href="@{/fooddiary/{date}/edit/{id}(date=${date}, id=${meal.id})}">
                                         <input type="image" id="edit-icon" src="/img/pencil-square.svg"
                                                alt="Edytuj"/>
@@ -90,7 +97,8 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                             Anuluj
                                         </button>
-                                        <form action="#" th:action="@{/fooddiary/{date}/delete/{id}(date=${date}, id=${meal.id})}"
+                                        <form action="#"
+                                              th:action="@{/fooddiary/{date}/delete/{id}(date=${date}, id=${meal.id})}"
                                               th:method="get">
                                             <button type="submit" class="btn btn-primary">Usuń</button>
                                         </form>

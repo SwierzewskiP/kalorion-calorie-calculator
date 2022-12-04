@@ -66,6 +66,11 @@ p {
     margin-top: 2rem;
 }
 
+#add-icon {
+    height: 21px;
+    width: 21px;
+}
+
 #edit-icon {
     height: 16px;
     width: 16px;
