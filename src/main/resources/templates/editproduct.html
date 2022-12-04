@@ -25,15 +25,6 @@
             </div>
 
             <div th:object="${productDTO.macroPer100g}" class="row mb-4">
-                <label for="proteinInput" class="col-sm-3 col-form-label">Białko (g)</label>
-                <div class="col-sm-9">
-                    <input id="proteinInput" class="form-control" type="number" th:field="*{protein}">
-                    <small class="form-text text-danger" th:if="${#fields.hasErrors('protein')}"
-                           th:errorclass="error" th:errors="*{protein}"></small>
-                </div>
-            </div>
-
-            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
                 <label for="fatInput" class="col-sm-3 col-form-label">Tłuszcz (g)</label>
                 <div class="col-sm-9">
                     <input id="fatInput" class="form-control" type="number" th:field="*{fat}">
@@ -48,6 +39,15 @@
                     <input id="carbInput" class="form-control" type="number" th:field="*{carb}">
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('carb')}"
                            th:errorclass="error" th:errors="*{carb}"></small>
+                </div>
+            </div>
+
+            <div th:object="${productDTO.macroPer100g}" class="row mb-4">
+                <label for="proteinInput" class="col-sm-3 col-form-label">Białko (g)</label>
+                <div class="col-sm-9">
+                    <input id="proteinInput" class="form-control" type="number" th:field="*{protein}">
+                    <small class="form-text text-danger" th:if="${#fields.hasErrors('protein')}"
+                           th:errorclass="error" th:errors="*{protein}"></small>
                 </div>
             </div>
 

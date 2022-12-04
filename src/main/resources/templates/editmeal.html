@@ -37,13 +37,9 @@
                 </tr>
                 </thead>
                 <tbody class="text-muted small">
-                <tr class>
+                <tr>
                     <th>Wartość energetyczna</th>
                     <td th:text="${mealDTO.product.macroPer100g.kcal} + ' kcal'"></td>
-                </tr>
-                <tr>
-                    <th>Białko</th>
-                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.protein,1,1)} + ' g'"></td>
                 </tr>
                 <tr>
                     <th>Tłuszcz</th>
@@ -52,6 +48,10 @@
                 <tr>
                     <th>Węglowodany</th>
                     <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.carb,1,1)} + ' g'"></td>
+                </tr>
+                <tr>
+                    <th>Białko</th>
+                    <td th:text="${#numbers.formatDecimal(mealDTO.product.macroPer100g.protein,1,1)} + ' g'"></td>
                 </tr>
                 </tbody>
                 <tfoot class="text-muted small">
