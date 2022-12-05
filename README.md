@@ -25,17 +25,17 @@ and processed after submitting...
 
 ### Result screen
 
-*Voila!* Our user now knows how many calories to eat daily (and how low he or she can go, while eating less to still be healthy).
+*Voila!* Our user now knows how many calories to eat daily (and how low he or she can go, while eating less to remain healthy).
 
 ![](src/main/resources/static/img/readme/yourcalories.png)
 
 
 ### THE Food Diary
 
-This view is the *meat and potatoes* (pun intended!) of my app, where all magic happens:
+This view is the *meat and potatoes* (pun intended!) of my app, where all "magic" happens:
 * Every meal has its kcal and macros calculated per weight.
 * Every meal type (eg. breakfast, dinner etc.) has calculated its total kcal and nutrients.
-* Then all is summed up and displayed as whole-day-total in this beautiful footer (total macros are calculated as default diet amounts – 20% protein / 30% fat / 50% carbohydrates).
+* Then all is summed up and displayed as whole-day-total in this beautiful footer (total macro limits are calculated as recommended default diet amounts – 20% protein, 30% fat, 50% carbohydrates).
 
 ![](src/main/resources/static/img/readme/fooddiary-1.png)
 
@@ -44,16 +44,25 @@ This view is the *meat and potatoes* (pun intended!) of my app, where all magic 
 ![](src/main/resources/static/img/readme/fooddiary-3.png)
 
 
+### Add meal with new product
+
+In other words user rewrite name and nutrition values from product label and put his own portion weight. New product is added to database for *all* kalOrion users and as weighted meal is added to current user food diary for chosen day and meal type.
+
+![](src/main/resources/static/img/readme/createnewmeal-1.png)
+
+![](src/main/resources/static/img/readme/createnewmeal-2.png)
+
+
 ### Edit meal form
 
-Self explanatory!
+Self-explanatory!
 
 ![](src/main/resources/static/img/readme/editmeal.png)
 
 
 ### Edit product
 
-Not so obvious... User can edit nutritional values per 100 g of product based on product label (assuming provided data isn't correct). This setting works globally for every user.
+Not so obvious... User can edit nutritional values per 100 g of product based on product label (assuming provided data isn't correct). This setting works globally for *every* user.
 
 ![](src/main/resources/static/img/readme/editproduct.png)
 
@@ -78,5 +87,5 @@ Simple modal to delete meal from food diary.
 
 
 ###### Features to come soon:
-- Add new meal/product
 - Search for food from products
+- Add meal from fetched products
