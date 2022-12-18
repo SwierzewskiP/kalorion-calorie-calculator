@@ -40,4 +40,31 @@ public class MealController {
 
         return "redirect:/fooddiary/" + date;
     }
+
+    @GetMapping("/fooddiary/{date}/edit/{id}")
+    public String getMealToEdit(@PathVariable LocalDate date, @PathVariable("id") Long id, Model model) {
+        MealDTO mealDTO = mealService.getMealDTObyId(id);
+
+        model.addAttribute("mealDTO", mealDTO);
+
+        return "editmeal";
+    }
+
+    @PostMapping("/fooddiary/{date}/update/{id}")
+    public String postMealToUpdate(@PathVariable LocalDate date, @PathVariable("id") Long id,
+                                   @Valid MealDTO mealDTO, BindingResult result) {
+        MealDTO mealTemp = mealService.getMealDTObyId(id);
+        if (result.hasErrors()) {
+            mealDTO.setProduct(mealTemp.getProduct());
+            return "editmeal";
+        }
+        mealService.updateMeal(mealDTO);
+        return "redirect:/fooddiary/" + date;
+    }
+
+    @GetMapping("/fooddiary/{date}/delete/{id}")
+    public String getMealToDelete(@PathVariable LocalDate date, @PathVariable Long id) {
+        mealService.deleteMeal(id);
+        return "redirect:/fooddiary/" + date;
+    }
 }
