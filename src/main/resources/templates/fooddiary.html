@@ -56,7 +56,7 @@
                         <table class="table-sm container">
                             <tr class="row">
                                 <td class="col position-relative">
-                                    <span th:text="${meal.product.name}"></span>
+                                    <div class="text-break fooddiary-item-name" th:text="${meal.product.name}"></div>
                                     <span class="position-absolute top-0 end-0">
                                     <a th:href="@{/fooddiary/{date}/edit/{id}(date=${date}, id=${meal.id})}">
                                         <input type="image" id="edit-icon" src="/img/pencil-square.svg"

@@ -9,14 +9,12 @@ import pl.swierzewskipiotr.kalorioncaloriecalculator.enums.MealType;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
 public class MealDTO {
     private Long id;
     @Valid
-    @NotNull(message = "Podaj wartość z tabeli produktu.")
     private Product product;
     private Macro macro;
     @Min(value = 1, message = "Minimalna waga to 1 gram.")

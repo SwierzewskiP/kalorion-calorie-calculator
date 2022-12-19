@@ -116,6 +116,10 @@ p {
     margin-top: 11px;
 }
 
+.fooddiary-item-name {
+    width: 570px;
+}
+
 
 /* I override bootstrap classes below */
 
